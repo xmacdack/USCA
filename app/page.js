@@ -648,47 +648,26 @@ const HeroSection = ({ setConfetti, hasAlert }) => {
   )
 }
 
-// ============== TRUST STRIP (Replaces noisy country carousel) ==============
-const TrustStrip = () => (
-  <section className="py-8 bg-gray-50 dark:bg-gray-900 border-y border-gray-200 dark:border-gray-800">
-    <div className="container mx-auto px-6">
-      <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">
-        <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
-          <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center">
-            <Shield className="w-5 h-5 text-green-600" />
+// ============== COUNTRIES CAROUSEL ==============
+const CountriesCarousel = () => (
+  <section className="py-6 bg-gray-50 dark:bg-gray-900 border-y border-gray-200 dark:border-gray-800 overflow-hidden">
+    <div className="relative">
+      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-gray-50 dark:from-gray-900 to-transparent z-10" />
+      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-gray-50 dark:from-gray-900 to-transparent z-10" />
+      
+      <div className="animate-marquee">
+        {[...COUNTRIES, ...COUNTRIES].map((country, i) => (
+          <div key={i} className="country-flag-item mx-4 flex-shrink-0">
+            <img 
+              src={`https://flagcdn.com/w40/${country.code}.png`}
+              srcSet={`https://flagcdn.com/w80/${country.code}.png 2x`}
+              alt={country.name}
+              className="w-8 h-6 object-cover rounded shadow-sm"
+              loading="lazy"
+            />
+            <span className="font-medium text-sm">{country.name}</span>
           </div>
-          <div>
-            <p className="font-semibold text-gray-900 dark:text-white text-sm">Secure Payments</p>
-            <p className="text-xs text-gray-500">PayPal, Crypto, Cards</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
-          <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
-            <Zap className="w-5 h-5 text-blue-600" />
-          </div>
-          <div>
-            <p className="font-semibold text-gray-900 dark:text-white text-sm">Instant Activation</p>
-            <p className="text-xs text-gray-500">Start watching in minutes</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
-          <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center">
-            <Headphones className="w-5 h-5 text-purple-600" />
-          </div>
-          <div>
-            <p className="font-semibold text-gray-900 dark:text-white text-sm">24/7 Support</p>
-            <p className="text-xs text-gray-500">WhatsApp & Telegram</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
-          <div className="w-10 h-10 rounded-full bg-orange-500/10 flex items-center justify-center">
-            <Globe className="w-5 h-5 text-orange-600" />
-          </div>
-          <div>
-            <p className="font-semibold text-gray-900 dark:text-white text-sm">150+ Countries</p>
-            <p className="text-xs text-gray-500">Worldwide coverage</p>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   </section>
