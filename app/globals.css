@@ -162,18 +162,41 @@ body {
 
 /* Pricing Card */
 .pricing-card {
-  background: hsl(var(--card)); border: 1px solid hsl(var(--border));
-  border-radius: 24px; padding: 32px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative; overflow: hidden;
+  background: hsl(var(--card)); 
+  border: 1px solid hsl(var(--border));
+  border-radius: 24px; 
+  padding: 32px; 
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative; 
+  overflow: visible;
 }
 .pricing-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  content: ''; 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  height: 3px;
   background: linear-gradient(90deg, transparent, #E50914, transparent);
-  opacity: 0; transition: opacity 0.3s ease;
+  opacity: 0; 
+  transition: opacity 0.3s ease;
 }
 .pricing-card:hover::before { opacity: 1; }
-.pricing-card:hover { border-color: #E50914; transform: translateY(-10px) scale(1.02); box-shadow: 0 30px 60px rgba(229, 9, 20, 0.15); }
-.pricing-card.featured { background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%); border-color: #E50914; }
+.pricing-card:hover { 
+  border-color: #E50914; 
+  transform: translateY(-10px) scale(1.02); 
+  box-shadow: 0 30px 60px rgba(229, 9, 20, 0.15); 
+}
+.pricing-card.featured { 
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%); 
+  border-color: #E50914;
+  border-width: 2px;
+}
+
+/* Section Spacing */
+section {
+  scroll-margin-top: 100px;
+}
 
 /* Alert Banner */
 .alert-banner {
