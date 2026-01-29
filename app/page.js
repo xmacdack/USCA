@@ -516,50 +516,50 @@ const FeaturesSection = () => {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="features" ref={ref} className="py-24 relative overflow-hidden">
+    <section id="features" ref={ref} className="py-16 relative overflow-hidden">
       <div className="absolute inset-0 grid-pattern" />
-      <FloatingOrb className="top-0 right-0" size={600} delay={0} />
-      <FloatingOrb className="bottom-0 left-0" size={500} color="#ff4444" delay={3} />
-      <Particles count={15} />
+      <FloatingOrb className="top-0 right-0" size={500} delay={0} />
+      <FloatingOrb className="bottom-0 left-0" size={400} color="#ff4444" delay={3} />
+      <Particles count={12} />
 
       <div className="container mx-auto px-6 relative z-10">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} className="text-center mb-16">
-          <motion.span className="section-label mb-6 inline-flex" whileHover={{ scale: 1.05 }}><Sparkles className="w-4 h-4" /> Features</motion.span>
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight mt-6">Everything you need.</h2>
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-gray-300 dark:text-gray-700">Nothing you don't.</h2>
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} className="text-center mb-12">
+          <motion.span className="section-label mb-4 inline-flex" whileHover={{ scale: 1.05 }}><Sparkles className="w-4 h-4" /> Features</motion.span>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mt-4">Everything you need.</h2>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-gray-300 dark:text-gray-700">Nothing you don't.</h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.1 }} className="md:col-span-2 bento-card rounded-3xl p-8 md:p-12 relative overflow-hidden group">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.1 }} className="md:col-span-2 bento-card rounded-2xl p-6 md:p-8 relative overflow-hidden group">
             <motion.div className="absolute -top-20 -right-20 w-40 h-40 bg-[#E50914]/10 rounded-full blur-3xl" animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 4, repeat: Infinity }} />
             <div className="relative z-10">
-              <div className="flex items-start justify-between mb-8">
-                <motion.div className="w-16 h-16 bg-[#E50914]/10 rounded-2xl flex items-center justify-center" whileHover={{ rotate: 10, scale: 1.1 }}><Tv className="w-8 h-8 text-[#E50914]" /></motion.div>
-                <span className="text-6xl md:text-8xl font-bold text-gray-100 dark:text-gray-800 group-hover:text-[#E50914]/10 transition-colors">22K+</span>
+              <div className="flex items-start justify-between mb-6">
+                <motion.div className="w-14 h-14 bg-[#E50914]/10 rounded-xl flex items-center justify-center" whileHover={{ rotate: 10, scale: 1.1 }}><Tv className="w-7 h-7 text-[#E50914]" /></motion.div>
+                <span className="text-5xl md:text-7xl font-bold text-gray-100 dark:text-gray-800 group-hover:text-[#E50914]/10 transition-colors">22K+</span>
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-3">Live TV Channels</h3>
-              <p className="text-gray-500 dark:text-gray-400 text-lg">Premium channels from every corner of the globe. Sports, news, entertainment, kids content, and more.</p>
+              <h3 className="text-xl md:text-2xl font-bold mb-2">Live TV Channels</h3>
+              <p className="text-gray-500 dark:text-gray-400">Premium channels from every corner of the globe. Sports, news, entertainment, kids content, and more.</p>
             </div>
           </motion.div>
           {[{ icon: Zap, title: '4K Ultra HD', desc: 'Crystal clear picture quality.', delay: 0.2 }, { icon: Film, title: '80K+ VOD', desc: 'Movies, series, documentaries.', delay: 0.3 }].map((item, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: item.delay }} className="bento-card rounded-3xl p-8 group">
-              <motion.div className="w-12 h-12 bg-[#E50914]/10 rounded-xl flex items-center justify-center mb-6" whileHover={{ rotate: 10, scale: 1.1 }}><item.icon className="w-6 h-6 text-[#E50914]" /></motion.div>
-              <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-              <p className="text-gray-500 dark:text-gray-400">{item.desc}</p>
+            <motion.div key={i} initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: item.delay }} className="bento-card rounded-2xl p-5 group">
+              <motion.div className="w-10 h-10 bg-[#E50914]/10 rounded-lg flex items-center justify-center mb-4" whileHover={{ rotate: 10, scale: 1.1 }}><item.icon className="w-5 h-5 text-[#E50914]" /></motion.div>
+              <h3 className="text-lg font-bold mb-1">{item.title}</h3>
+              <p className="text-gray-500 dark:text-gray-400 text-sm">{item.desc}</p>
             </motion.div>
           ))}
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.4 }} className="md:col-span-2 bento-card rounded-3xl p-8">
-            <div className="flex flex-wrap gap-3 mb-6">
-              {['Fire Stick', 'Android TV', 'Smart TV', 'iOS', 'Android', 'PC/Mac'].map((d, i) => (<motion.span key={i} className="bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-full text-sm font-medium hover:bg-[#E50914] hover:text-white transition-all cursor-default" whileHover={{ scale: 1.1, y: -2 }}>{d}</motion.span>))}
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.4 }} className="md:col-span-2 bento-card rounded-2xl p-5">
+            <div className="flex flex-wrap gap-2 mb-4">
+              {['Fire Stick', 'Android TV', 'Smart TV', 'iOS', 'Android', 'PC/Mac'].map((d, i) => (<motion.span key={i} className="bg-gray-100 dark:bg-gray-800 px-3 py-1.5 rounded-full text-xs font-medium hover:bg-[#E50914] hover:text-white transition-all cursor-default" whileHover={{ scale: 1.05 }}>{d}</motion.span>))}
             </div>
-            <h3 className="text-xl font-bold mb-2">Works Everywhere</h3>
-            <p className="text-gray-500 dark:text-gray-400">Stream on any device, anywhere in the world.</p>
+            <h3 className="text-lg font-bold mb-1">Works Everywhere</h3>
+            <p className="text-gray-500 dark:text-gray-400 text-sm">Stream on any device, anywhere in the world.</p>
           </motion.div>
           {[{ icon: Shield, title: 'VPN Compatible', desc: 'Private streaming.', delay: 0.5 }, { icon: Headphones, title: '24/7 Support', desc: 'Always here to help.', delay: 0.6 }, { icon: Clock, title: 'Instant Activation', desc: 'Start in minutes.', delay: 0.7 }].map((item, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: item.delay }} className="bento-card rounded-3xl p-8 group">
-              <motion.div whileHover={{ rotate: 10, scale: 1.1 }}><item.icon className="w-10 h-10 text-[#E50914] mb-4" /></motion.div>
-              <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-              <p className="text-gray-500 dark:text-gray-400">{item.desc}</p>
+            <motion.div key={i} initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: item.delay }} className="bento-card rounded-2xl p-5 group">
+              <motion.div whileHover={{ rotate: 10, scale: 1.1 }}><item.icon className="w-8 h-8 text-[#E50914] mb-3" /></motion.div>
+              <h3 className="text-lg font-bold mb-1">{item.title}</h3>
+              <p className="text-gray-500 dark:text-gray-400 text-sm">{item.desc}</p>
             </motion.div>
           ))}
         </div>
