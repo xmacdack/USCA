@@ -8,21 +8,19 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { 
   Play, Tv, Film, Clapperboard, Globe, Zap, Shield, Clock, 
   ChevronDown, Star, Check, MessageCircle, Send, Menu, X,
-  Smartphone, Monitor, Tablet, Crown, Sparkles, Users
+  Smartphone, Monitor, Tablet, Crown, Sparkles, Users, ArrowRight,
+  PlayCircle, Wifi, Award, Headphones
 } from 'lucide-react'
 
-// Constants
-const HERO_IMAGE = 'https://images.unsplash.com/photo-1593280359364-5242f1958068?w=1920&q=80'
-const LIVING_ROOM_IMAGE = 'https://images.pexels.com/photos/5202925/pexels-photo-5202925.jpeg?w=1200&q=80'
-const STREAMING_IMAGE = 'https://images.pexels.com/photos/29942709/pexels-photo-29942709.jpeg?w=1200&q=80'
-const CINEMATIC_BG = 'https://images.unsplash.com/photo-1611419010196-a360856fc42f?w=1920&q=80'
-const ABSTRACT_BG = 'https://images.unsplash.com/photo-1647505384832-9a8abd5dd56f?w=1920&q=80'
+// Hero Images
+const HERO_BG = 'https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=1920&q=80'
+const STREAMING_BG = 'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=1920&q=80'
 
 const DEVICES = [
   { name: 'Fire Stick', icon: Tv },
   { name: 'Android TV', icon: Monitor },
   { name: 'Smart TV', icon: Tv },
-  { name: 'iOS', icon: Smartphone },
+  { name: 'iPhone/iPad', icon: Smartphone },
   { name: 'Android', icon: Smartphone },
   { name: 'PC/Mac', icon: Monitor },
 ]
@@ -38,46 +36,44 @@ const COUNTRIES = [
   { name: 'Finland', flag: '🇫🇮' },
   { name: 'Ireland', flag: '🇮🇪' },
   { name: 'Spain', flag: '🇪🇸' },
+  { name: 'Italy', flag: '🇮🇹' },
+  { name: 'Australia', flag: '🇦🇺' },
 ]
 
 const PRICING = [
   {
     duration: '1 Month',
-    price: '$14.99',
-    original: '$30',
+    price: '14.99',
+    original: '30',
+    perMonth: '14.99',
     popular: false,
     link: 'https://iptvusca.sell.app/product/1-month-trial-nero-gold?quantity=1&info=faq'
   },
   {
     duration: '3 Months',
-    price: '$39.99',
-    original: '$60',
+    price: '39.99',
+    original: '60',
+    perMonth: '13.33',
     popular: false,
     link: 'https://iptvusca.sell.app/product/3-months-claudius-Gold?store=iptvusca&quantity=1&info=faq'
   },
   {
     duration: '6 Months',
-    price: '$69.99',
-    original: '$90',
+    price: '69.99',
+    original: '90',
+    perMonth: '11.67',
     popular: true,
     link: 'https://iptvusca.sell.app/product/6-months-julius-caesar-gold?store=iptvusca&quantity=1&info=faq'
   },
   {
     duration: '1 Year',
-    price: '$99.99',
-    original: '$140',
+    price: '99.99',
+    original: '140',
+    perMonth: '8.33',
     popular: false,
+    bestValue: true,
     link: 'https://iptvusca.sell.app/product/12-months-augustus-gold?store=iptvusca&quantity=1&info=faq'
   }
-]
-
-const FEATURES = [
-  { icon: Tv, title: '22K+ Channels', description: 'Premium live TV channels from around the world' },
-  { icon: Film, title: '80K+ VOD', description: 'Movies, series, and documentaries on demand' },
-  { icon: Zap, title: '4K Ultra HD', description: 'Crystal clear streaming quality' },
-  { icon: Shield, title: 'VPN Support', description: 'Protected streaming with VPN compatibility' },
-  { icon: Clock, title: '24/7 Support', description: 'Round the clock customer assistance' },
-  { icon: Globe, title: 'Worldwide', description: 'Coverage across all continents' },
 ]
 
 const FAQS = [
@@ -91,7 +87,7 @@ const FAQS = [
   },
   {
     question: 'Can I get a refund?',
-    answer: 'We offer a FREE 24-hour trial for all new customers. If you\'re not satisfied within 7 days of purchase, we can process a refund with proof of the issue.'
+    answer: "We offer a FREE 24-hour trial for all new customers. If you're not satisfied within 7 days of purchase, we can process a refund with proof of the issue."
   },
   {
     question: 'How fast is the activation?',
@@ -107,7 +103,7 @@ const FAQS = [
   }
 ]
 
-// Animated Counter Component
+// Animated Counter
 const AnimatedCounter = ({ value, suffix = '', prefix = '' }) => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
@@ -135,14 +131,10 @@ const AnimatedCounter = ({ value, suffix = '', prefix = '' }) => {
     }
   }, [isInView, value])
 
-  return (
-    <span ref={ref}>
-      {prefix}{count.toLocaleString()}{suffix}
-    </span>
-  )
+  return <span ref={ref}>{prefix}{count.toLocaleString()}{suffix}</span>
 }
 
-// Navbar Component
+// Navbar
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
@@ -153,68 +145,56 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const navItems = [
-    { label: 'Features', href: '#features' },
-    { label: 'Pricing', href: '#pricing' },
-    { label: 'FAQ', href: '#faq' },
-    { label: 'Contact', href: '#contact' },
-  ]
-
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? 'glass-dark py-3' : 'py-5'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-black/95 backdrop-blur-md py-3 shadow-lg' : 'bg-transparent py-5'
       }`}
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
-        <motion.a 
-          href="#" 
-          className="flex items-center gap-2"
-          whileHover={{ scale: 1.05 }}
-        >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
-            <Tv className="w-5 h-5 text-white" />
+        {/* Logo */}
+        <a href="#" className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-[#E50914] rounded flex items-center justify-center">
+            <Tv className="w-6 h-6 text-white" />
           </div>
-          <span className="text-xl font-bold gradient-text">IPTVUSCA</span>
-        </motion.a>
+          <span className="text-2xl font-bold text-white tracking-tight">IPTV<span className="text-[#E50914]">USCA</span></span>
+        </a>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
-            <motion.a
-              key={item.label}
-              href={item.href}
-              className="text-gray-300 hover:text-white transition-colors relative group"
-              whileHover={{ y: -2 }}
+          {['Features', 'Pricing', 'FAQ', 'Contact'].map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className="text-gray-300 hover:text-white transition-colors text-sm font-medium animated-underline"
             >
-              {item.label}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-violet-500 to-cyan-500 group-hover:w-full transition-all duration-300" />
-            </motion.a>
+              {item}
+            </a>
           ))}
         </div>
 
-        <div className="hidden md:flex items-center gap-4">
+        {/* CTA Buttons */}
+        <div className="hidden md:flex items-center gap-3">
           <Button 
             variant="ghost" 
-            className="text-gray-300 hover:text-white"
+            className="text-white hover:text-[#E50914] hover:bg-transparent"
             onClick={() => window.open('https://iptvusca.sell.app/product/24-hours-trial?info=reviews', '_blank')}
           >
             Free Trial
           </Button>
           <Button 
-            className="bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-500 hover:to-cyan-500 text-white border-0"
-            onClick={() => window.open('https://wa.me/14509127880', '_blank')}
+            className="bg-[#E50914] hover:bg-[#F40612] text-white font-semibold px-6"
+            onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            <MessageCircle className="w-4 h-4 mr-2" />
-            Contact Us
+            Get Started
           </Button>
         </div>
 
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden text-white"
+          className="md:hidden text-white p-2"
           onClick={() => setIsMobileOpen(!isMobileOpen)}
         >
           {isMobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -228,24 +208,24 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-dark mt-2 mx-4 rounded-xl overflow-hidden"
+            className="md:hidden bg-black/95 backdrop-blur-md border-t border-white/10"
           >
-            <div className="p-4 flex flex-col gap-4">
-              {navItems.map((item) => (
+            <div className="container mx-auto px-4 py-6 flex flex-col gap-4">
+              {['Features', 'Pricing', 'FAQ', 'Contact'].map((item) => (
                 <a
-                  key={item.label}
-                  href={item.href}
-                  className="text-gray-300 hover:text-white transition-colors py-2"
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  className="text-gray-300 hover:text-white py-2 text-lg"
                   onClick={() => setIsMobileOpen(false)}
                 >
-                  {item.label}
+                  {item}
                 </a>
               ))}
               <Button 
-                className="bg-gradient-to-r from-violet-600 to-cyan-600 text-white w-full"
-                onClick={() => window.open('https://wa.me/14509127880', '_blank')}
+                className="bg-[#E50914] hover:bg-[#F40612] text-white w-full mt-4"
+                onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                Contact Us
+                Get Started
               </Button>
             </div>
           </motion.div>
@@ -258,125 +238,106 @@ const Navbar = () => {
 // Hero Section
 const HeroSection = () => {
   const { scrollY } = useScroll()
-  const y = useTransform(scrollY, [0, 500], [0, 200])
+  const y = useTransform(scrollY, [0, 500], [0, 150])
   const opacity = useTransform(scrollY, [0, 300], [1, 0])
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Parallax Background */}
-      <motion.div 
-        className="absolute inset-0 z-0"
-        style={{ y }}
-      >
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background */}
+      <motion.div className="absolute inset-0" style={{ y }}>
         <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ 
+            backgroundImage: `url(${HERO_BG})`,
+            filter: 'brightness(0.3)'
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a12]/90 via-[#0a0a12]/70 to-[#0a0a12]" />
+        <div className="absolute inset-0 hero-gradient" />
       </motion.div>
 
-      {/* Animated Orbs */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <motion.div 
-          className="absolute w-[600px] h-[600px] rounded-full bg-violet-600/20 blur-[120px] -top-40 -left-40"
-          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-        <motion.div 
-          className="absolute w-[500px] h-[500px] rounded-full bg-cyan-600/20 blur-[100px] -bottom-20 -right-20"
-          animate={{ scale: [1.2, 1, 1.2], opacity: [0.4, 0.6, 0.4] }}
-          transition={{ duration: 6, repeat: Infinity }}
-        />
-      </div>
-
-      {/* Grid Pattern */}
-      <div className="absolute inset-0 grid-pattern z-0" />
+      {/* Red Accent Lines */}
+      <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#E50914] via-transparent to-transparent" />
+      <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-transparent via-transparent to-[#E50914]" />
 
       <motion.div 
-        className="container mx-auto px-4 relative z-10"
+        className="container mx-auto px-4 relative z-10 text-center"
         style={{ opacity }}
       >
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8"
-          >
-            <Sparkles className="w-4 h-4 text-yellow-400" />
-            <span className="text-sm text-gray-300">Premium IPTV Service</span>
-          </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="inline-flex items-center gap-2 bg-[#E50914]/20 border border-[#E50914]/50 rounded-full px-4 py-2 mb-8"
+        >
+          <span className="w-2 h-2 bg-[#E50914] rounded-full animate-pulse" />
+          <span className="text-sm text-white font-medium">PREMIUM IPTV SERVICE</span>
+        </motion.div>
 
-          {/* Main Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
-          >
-            <span className="text-white">Stream</span>{' '}
-            <span className="gradient-text">Premium TV</span>
-            <br />
-            <span className="text-white">Worldwide</span>
-          </motion.h1>
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-none tracking-tight"
+        >
+          <span className="text-white">UNLIMITED</span>
+          <br />
+          <span className="text-[#E50914]">ENTERTAINMENT</span>
+        </motion.h1>
 
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-xl md:text-2xl text-gray-400 mb-8 max-w-2xl mx-auto"
-          >
-            22,000+ Live Channels • 80,000+ Movies & Series • 4K Ultra HD Quality
-          </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto"
+        >
+          Stream 22,000+ live channels and 80,000+ movies & series in stunning 4K quality.
+          Watch anytime, anywhere, on any device.
+        </motion.p>
 
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+        >
+          <Button 
+            size="lg"
+            className="bg-[#E50914] hover:bg-[#F40612] text-white text-lg px-10 py-7 rounded font-bold group"
+            onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
           >
-            <Button 
-              size="lg"
-              className="bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-500 hover:to-cyan-500 text-white text-lg px-8 py-6 rounded-xl glow-purple"
-              onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              <Play className="w-5 h-5 mr-2" />
-              Get Started
-            </Button>
-            <Button 
-              size="lg"
-              variant="outline"
-              className="border-gray-600 text-white hover:bg-white/10 text-lg px-8 py-6 rounded-xl"
-              onClick={() => window.open('https://iptvusca.sell.app/product/24-hours-trial?info=reviews', '_blank')}
-            >
-              Try Free for 24h
-            </Button>
-          </motion.div>
+            <PlayCircle className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+            START WATCHING
+          </Button>
+          <Button 
+            size="lg"
+            variant="outline"
+            className="border-white/30 text-white hover:bg-white/10 hover:border-white text-lg px-10 py-7 rounded font-bold"
+            onClick={() => window.open('https://iptvusca.sell.app/product/24-hours-trial?info=reviews', '_blank')}
+          >
+            FREE 24H TRIAL
+          </Button>
+        </motion.div>
 
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="grid grid-cols-3 gap-8 max-w-xl mx-auto"
-          >
-            {[
-              { value: '22000', label: 'Channels', suffix: '+' },
-              { value: '80000', label: 'VOD Content', suffix: '+' },
-              { value: '99', label: 'Uptime', suffix: '%' },
-            ].map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold gradient-text">
-                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-                </div>
-                <div className="text-gray-500 text-sm mt-1">{stat.label}</div>
+        {/* Stats Row */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="flex flex-wrap justify-center gap-8 md:gap-16"
+        >
+          {[
+            { value: '22000', label: 'Live Channels', suffix: '+' },
+            { value: '80000', label: 'Movies & Series', suffix: '+' },
+            { value: '99', label: 'Uptime', suffix: '%' },
+          ].map((stat, index) => (
+            <div key={index} className="text-center">
+              <div className="text-4xl md:text-5xl font-black text-white">
+                <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               </div>
-            ))}
-          </motion.div>
-        </div>
+              <div className="text-gray-500 text-sm mt-1 uppercase tracking-wider">{stat.label}</div>
+            </div>
+          ))}
+        </motion.div>
       </motion.div>
 
       {/* Scroll Indicator */}
@@ -384,59 +345,53 @@ const HeroSection = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center gap-2 text-gray-500"
+          className="flex flex-col items-center text-gray-500"
         >
-          <span className="text-sm">Scroll to explore</span>
-          <ChevronDown className="w-5 h-5" />
+          <ChevronDown className="w-6 h-6" />
         </motion.div>
       </motion.div>
     </section>
   )
 }
 
-// Devices Section with Marquee
+// Devices Marquee Section
 const DevicesSection = () => {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const isInView = useInView(ref, { once: true })
 
   return (
-    <section ref={ref} className="py-20 relative overflow-hidden">
-      <div className="container mx-auto px-4 text-center mb-12">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          className="text-3xl md:text-4xl font-bold mb-4"
-        >
-          Works on <span className="gradient-text">All Devices</span>
-        </motion.h2>
-        <motion.p
+    <section ref={ref} className="py-16 bg-black border-y border-white/5">
+      <div className="container mx-auto px-4 mb-10">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.1 }}
-          className="text-gray-400 max-w-xl mx-auto"
+          className="text-center"
         >
-          Stream your favorite content on any device, anywhere, anytime
-        </motion.p>
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+            Watch on <span className="text-[#E50914]">Any Device</span>
+          </h2>
+          <p className="text-gray-500">Stream your favorite content anywhere, anytime</p>
+        </motion.div>
       </div>
 
       {/* Marquee */}
-      <div className="relative">
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#0a0a12] to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#0a0a12] to-transparent z-10" />
+      <div className="relative overflow-hidden">
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent z-10" />
         
         <div className="flex animate-marquee">
-          {[...DEVICES, ...DEVICES, ...DEVICES].map((device, index) => (
+          {[...DEVICES, ...DEVICES, ...DEVICES, ...DEVICES].map((device, index) => (
             <div
               key={index}
-              className="flex-shrink-0 mx-6 glass rounded-2xl p-8 w-48 text-center hover:scale-105 transition-transform duration-300"
+              className="flex-shrink-0 mx-4 bg-[#1a1a1a] rounded-xl p-6 w-40 text-center border border-white/5 hover:border-[#E50914]/30 transition-colors"
             >
-              <device.icon className="w-12 h-12 mx-auto mb-4 text-violet-400" />
-              <p className="text-white font-medium">{device.name}</p>
+              <device.icon className="w-10 h-10 mx-auto mb-3 text-[#E50914]" />
+              <p className="text-white text-sm font-medium">{device.name}</p>
             </div>
           ))}
         </div>
@@ -454,65 +409,65 @@ const FeaturesSection = () => {
     {
       icon: Tv,
       title: 'Live TV Channels',
-      description: 'Access 22,000+ premium channels from around the world. Never miss your favorite live matches or programs.',
-      color: 'from-violet-500 to-purple-600'
+      description: '22,000+ premium channels from every corner of the globe. Sports, news, entertainment, and more.',
     },
     {
       icon: Film,
       title: 'Movies On Demand',
-      description: 'Watch all new movies in theaters now, recent releases, trending titles, and IMDB Top 500+.',
-      color: 'from-cyan-500 to-blue-600'
+      description: 'Latest blockbusters, classics, and hidden gems. New releases added daily.',
     },
     {
       icon: Clapperboard,
       title: 'TV Series',
-      description: 'All the latest trending series currently airing. Be first to watch new episodes from your favorites.',
-      color: 'from-emerald-500 to-green-600'
-    }
+      description: 'Binge-worthy series from day one. Never miss an episode of your favorites.',
+    },
+    {
+      icon: Zap,
+      title: '4K Ultra HD',
+      description: 'Crystal clear picture quality. Experience entertainment like never before.',
+    },
+    {
+      icon: Shield,
+      title: 'VPN Compatible',
+      description: 'Full VPN support for secure, private streaming anywhere in the world.',
+    },
+    {
+      icon: Headphones,
+      title: '24/7 Support',
+      description: 'Expert help whenever you need it. Our team is always here for you.',
+    },
   ]
 
   return (
-    <section id="features" ref={ref} className="py-24 relative">
-      {/* Background */}
-      <div className="absolute inset-0 z-0">
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-10"
-          style={{ backgroundImage: `url(${CINEMATIC_BG})` }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a12] via-transparent to-[#0a0a12]" />
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
+    <section id="features" ref={ref} className="py-24 bg-[#0a0a0a]">
+      <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Premium <span className="gradient-text">Entertainment</span>
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+            WHY CHOOSE <span className="text-[#E50914]">US</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
             Everything you need for the ultimate streaming experience
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: index * 0.2 }}
+              transition={{ delay: index * 0.1 }}
+              className="feature-card rounded-xl p-8 hover:scale-105 transition-all duration-300 cursor-pointer group"
             >
-              <Card className="bg-transparent border-0 glass-dark rounded-3xl overflow-hidden group hover:scale-105 transition-all duration-500 h-full">
-                <CardContent className="p-8">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}>
-                    <feature.icon className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{feature.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{feature.description}</p>
-                </CardContent>
-              </Card>
+              <div className="w-14 h-14 bg-[#E50914]/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#E50914]/20 transition-colors">
+                <feature.icon className="w-7 h-7 text-[#E50914]" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
+              <p className="text-gray-500 leading-relaxed">{feature.description}</p>
             </motion.div>
           ))}
         </div>
@@ -521,51 +476,47 @@ const FeaturesSection = () => {
   )
 }
 
-// Trial CTA Section
-const TrialSection = () => {
+// CTA Section
+const CTASection = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
 
   return (
     <section ref={ref} className="py-24 relative overflow-hidden">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={isInView ? { opacity: 1, scale: 1 } : {}}
-        className="container mx-auto px-4"
-      >
-        <div className="relative rounded-3xl overflow-hidden">
-          {/* Background */}
-          <div 
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${LIVING_ROOM_IMAGE})` }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-violet-900/90 to-cyan-900/90" />
-          
-          {/* Content */}
-          <div className="relative z-10 py-20 px-8 md:px-16 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2 }}
-            >
-              <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-                Try It Risk Free
-              </h2>
-              <p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
-                Get a FREE 24-hour trial account. Perfect for PPV events and game nights!
-              </p>
-              <Button
-                size="lg"
-                className="bg-white text-violet-900 hover:bg-gray-100 text-lg px-10 py-6 rounded-xl font-semibold"
-                onClick={() => window.open('https://iptvusca.sell.app/product/24-hours-trial?info=reviews', '_blank')}
-              >
-                <Play className="w-5 h-5 mr-2" />
-                Request Free Trial
-              </Button>
-            </motion.div>
-          </div>
-        </div>
-      </motion.div>
+      <div className="absolute inset-0">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ 
+            backgroundImage: `url(${STREAMING_BG})`,
+            filter: 'brightness(0.2)'
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black" />
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          className="max-w-3xl mx-auto text-center"
+        >
+          <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
+            TRY IT <span className="text-[#E50914]">FREE</span>
+          </h2>
+          <p className="text-xl text-gray-400 mb-10">
+            Get a FREE 24-hour trial. No credit card required. 
+            Perfect for PPV events and game nights!
+          </p>
+          <Button
+            size="lg"
+            className="bg-[#E50914] hover:bg-[#F40612] text-white text-lg px-12 py-7 rounded font-bold animate-pulse-red"
+            onClick={() => window.open('https://iptvusca.sell.app/product/24-hours-trial?info=reviews', '_blank')}
+          >
+            <Play className="w-5 h-5 mr-2" />
+            START FREE TRIAL
+          </Button>
+        </motion.div>
+      </div>
     </section>
   )
 }
@@ -576,24 +527,24 @@ const CountriesSection = () => {
   const isInView = useInView(ref, { once: true })
 
   return (
-    <section ref={ref} className="py-24 relative">
+    <section ref={ref} className="py-20 bg-black">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Popular <span className="gradient-text">Worldwide</span>
+          <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+            POPULAR <span className="text-[#E50914]">WORLDWIDE</span>
           </h2>
-          <p className="text-gray-400 text-lg">Trusted by viewers across the globe</p>
+          <p className="text-gray-500">Trusted by viewers across the globe</p>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-4"
+          className="flex flex-wrap justify-center gap-3"
         >
           {COUNTRIES.map((country, index) => (
             <motion.div
@@ -601,11 +552,11 @@ const CountriesSection = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ delay: index * 0.05 }}
-              whileHover={{ scale: 1.1, y: -5 }}
-              className="glass rounded-2xl px-6 py-4 flex items-center gap-3 cursor-pointer hover:bg-white/10 transition-colors"
+              whileHover={{ scale: 1.1 }}
+              className="bg-[#1a1a1a] border border-white/10 rounded-lg px-5 py-3 flex items-center gap-3 cursor-pointer hover:border-[#E50914]/50 transition-colors"
             >
-              <span className="text-3xl">{country.flag}</span>
-              <span className="text-white font-medium">{country.name}</span>
+              <span className="text-2xl">{country.flag}</span>
+              <span className="text-white font-medium text-sm">{country.name}</span>
             </motion.div>
           ))}
         </motion.div>
@@ -620,92 +571,89 @@ const PricingSection = () => {
   const isInView = useInView(ref, { once: true })
 
   const benefits = [
-    'Premium Plan+',
-    'Fast activation',
-    '+22k Channels',
-    '+80k VODs',
-    'Worldwide Coverage',
-    'True 4K Quality',
-    'VPN Protection',
-    '24/7 Free Support'
+    '22,000+ Live Channels',
+    '80,000+ Movies & Series',
+    '4K Ultra HD Quality',
+    'VPN Compatible',
+    '24/7 Support',
+    'Instant Activation',
+    'All Devices Supported',
+    'Free Updates'
   ]
 
   return (
-    <section id="pricing" ref={ref} className="py-24 relative">
-      {/* Background Glow */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute w-[800px] h-[800px] rounded-full bg-violet-600/10 blur-[150px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
+    <section id="pricing" ref={ref} className="py-24 bg-[#0a0a0a]">
+      <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
-            <Crown className="w-4 h-4 text-yellow-400" />
-            <span className="text-sm gradient-text-gold font-semibold">GOLD SERVER</span>
+          <div className="inline-flex items-center gap-2 bg-[#E50914]/10 border border-[#E50914]/30 rounded-full px-4 py-2 mb-6">
+            <Crown className="w-4 h-4 text-[#E50914]" />
+            <span className="text-sm text-[#E50914] font-bold">GOLD SERVER</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Choose Your <span className="gradient-text-gold">Plan</span>
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+            CHOOSE YOUR <span className="text-[#E50914]">PLAN</span>
           </h2>
-          <p className="text-gray-400 text-lg">All prices in USD • Cancel anytime</p>
+          <p className="text-gray-500 text-lg">All prices in USD • Cancel anytime</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {PRICING.map((plan, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: index * 0.1 }}
-              className="relative"
+              className={`pricing-card ${plan.popular ? 'popular' : ''} rounded-xl p-6 relative`}
             >
               {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                  <div className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-sm font-semibold px-4 py-1 rounded-full">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <span className="bg-[#E50914] text-white text-xs font-bold px-4 py-1 rounded-full">
                     MOST POPULAR
-                  </div>
+                  </span>
                 </div>
               )}
-              <Card className={`h-full rounded-3xl overflow-hidden transition-all duration-500 hover:scale-105 ${
-                plan.popular 
-                  ? 'gradient-border glow-gold' 
-                  : 'glass-dark border-gray-800 hover:border-violet-500/50'
-              }`}>
-                <CardContent className="p-8">
-                  <h3 className="text-xl font-semibold text-white mb-2">{plan.duration}</h3>
-                  <div className="mb-6">
-                    <span className="text-4xl font-bold gradient-text-gold">{plan.price}</span>
-                    <span className="text-gray-500 line-through ml-2">{plan.original}</span>
-                  </div>
-                  
-                  <ul className="space-y-3 mb-8">
-                    {benefits.map((benefit, i) => (
-                      <li key={i} className="flex items-center gap-2 text-gray-300 text-sm">
-                        <Check className="w-4 h-4 text-green-400 flex-shrink-0" />
-                        {benefit}
-                      </li>
-                    ))}
-                  </ul>
+              {plan.bestValue && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <span className="bg-white text-black text-xs font-bold px-4 py-1 rounded-full">
+                    BEST VALUE
+                  </span>
+                </div>
+              )}
+              
+              <div className="text-center mb-6 pt-2">
+                <h3 className="text-lg font-bold text-white mb-4">{plan.duration}</h3>
+                <div className="mb-2">
+                  <span className="text-4xl font-black text-white">${plan.price}</span>
+                </div>
+                <div className="text-gray-500 text-sm">
+                  <span className="line-through">${plan.original}</span>
+                  <span className="mx-2">•</span>
+                  <span className="text-[#E50914]">${plan.perMonth}/mo</span>
+                </div>
+              </div>
+              
+              <ul className="space-y-3 mb-6">
+                {benefits.slice(0, 6).map((benefit, i) => (
+                  <li key={i} className="flex items-center gap-2 text-gray-400 text-sm">
+                    <Check className="w-4 h-4 text-[#E50914] flex-shrink-0" />
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
 
-                  <Button
-                    className={`w-full py-6 rounded-xl font-semibold ${
-                      plan.popular
-                        ? 'bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-white'
-                        : 'bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-500 hover:to-cyan-500 text-white'
-                    }`}
-                    onClick={() => window.open(plan.link, '_blank')}
-                  >
-                    Get Started
-                  </Button>
-                  
-                  <p className="text-center text-gray-500 text-xs mt-4">
-                    TV / Android / iOS / PC
-                  </p>
-                </CardContent>
-              </Card>
+              <Button
+                className={`w-full py-6 rounded font-bold text-sm ${
+                  plan.popular
+                    ? 'bg-[#E50914] hover:bg-[#F40612] text-white'
+                    : 'bg-white/10 hover:bg-white/20 text-white border border-white/20'
+                }`}
+                onClick={() => window.open(plan.link, '_blank')}
+              >
+                GET STARTED
+              </Button>
             </motion.div>
           ))}
         </div>
@@ -720,149 +668,28 @@ const StatsSection = () => {
   const isInView = useInView(ref, { once: true })
 
   const stats = [
-    { icon: Users, value: '50000', suffix: '+', label: 'Happy Customers' },
-    { icon: Clock, value: '2', suffix: 'h', label: 'Avg Delivery Time' },
-    { icon: Globe, value: '190', suffix: '+', label: 'Countries Covered' }
+    { icon: Users, value: '50000', suffix: '+', label: 'Active Subscribers' },
+    { icon: Globe, value: '190', suffix: '+', label: 'Countries Covered' },
+    { icon: Award, value: '99', suffix: '%', label: 'Uptime Guaranteed' }
   ]
 
   return (
-    <section ref={ref} className="py-20 relative">
+    <section ref={ref} className="py-16 bg-black border-y border-white/5">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-8">
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: index * 0.1 }}
-              className="glass rounded-3xl p-8 text-center hover:bg-white/5 transition-colors"
+              className="text-center"
             >
-              <stat.icon className="w-12 h-12 mx-auto mb-4 text-violet-400" />
-              <div className="text-4xl font-bold gradient-text mb-2">
+              <stat.icon className="w-10 h-10 mx-auto mb-4 text-[#E50914]" />
+              <div className="text-4xl font-black text-white mb-1">
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               </div>
-              <p className="text-gray-400">{stat.label}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// Why Choose Us Section
-const WhyChooseSection = () => {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true })
-
-  return (
-    <section ref={ref} className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Image */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            className="relative"
-          >
-            <div className="relative rounded-3xl overflow-hidden">
-              <img 
-                src={STREAMING_IMAGE} 
-                alt="Streaming" 
-                className="w-full h-auto rounded-3xl"
-              />
-              <div className="absolute inset-0 bg-gradient-to-tr from-violet-900/50 to-transparent" />
-            </div>
-            {/* Floating Card */}
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 4, repeat: Infinity }}
-              className="absolute -bottom-8 -right-8 glass rounded-2xl p-6 hidden md:block"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
-                  <Check className="w-6 h-6 text-green-400" />
-                </div>
-                <div>
-                  <p className="text-white font-semibold">99.9% Uptime</p>
-                  <p className="text-gray-400 text-sm">Guaranteed</p>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ultimate Playlist <span className="gradient-text">All-in-One</span>
-            </h2>
-            <p className="text-gray-400 text-lg mb-8">
-              Live TV + Video On Demand. Everything you need in one subscription.
-            </p>
-
-            <div className="space-y-6">
-              {[
-                {
-                  title: 'Global Content',
-                  description: 'News, Sport, Documentary, Entertainment, Kids, Movies & Series from USA, UK, Canada, France, Spain, Germany and more.'
-                },
-                {
-                  title: 'Premium Quality',
-                  description: 'High Quality (4K UHD, FHD, HD) compatible with Smart TV, Smartphone, Tablet, Computer, and more.'
-                },
-                {
-                  title: 'Custom Playlists',
-                  description: 'Customize your playlist for free. Keep only what you need for better performance.'
-                }
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.2 + index * 0.1 }}
-                  className="flex gap-4"
-                >
-                  <div className="w-8 h-8 rounded-lg bg-violet-500/20 flex items-center justify-center flex-shrink-0 mt-1">
-                    <Check className="w-4 h-4 text-violet-400" />
-                  </div>
-                  <div>
-                    <h4 className="text-white font-semibold mb-1">{item.title}</h4>
-                    <p className="text-gray-400">{item.description}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// Features Grid
-const FeaturesGrid = () => {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true })
-
-  return (
-    <section ref={ref} className="py-20">
-      <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {FEATURES.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="glass rounded-2xl p-6 hover:bg-white/5 transition-all duration-300 cursor-pointer group"
-            >
-              <feature.icon className="w-10 h-10 text-violet-400 mb-4 group-hover:scale-110 transition-transform" />
-              <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
-              <p className="text-gray-400">{feature.description}</p>
+              <p className="text-gray-500 text-sm uppercase tracking-wider">{stat.label}</p>
             </motion.div>
           ))}
         </div>
@@ -877,17 +704,17 @@ const FAQSection = () => {
   const isInView = useInView(ref, { once: true })
 
   return (
-    <section id="faq" ref={ref} className="py-24 relative">
-      <div className="container mx-auto px-4 max-w-4xl">
+    <section id="faq" ref={ref} className="py-24 bg-[#0a0a0a]">
+      <div className="container mx-auto px-4 max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Frequently Asked <span className="gradient-text">Questions</span>
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+            FREQUENTLY <span className="text-[#E50914]">ASKED</span>
           </h2>
-          <p className="text-gray-400 text-lg">Everything you need to know</p>
+          <p className="text-gray-500 text-lg">Got questions? We've got answers.</p>
         </motion.div>
 
         <motion.div
@@ -895,17 +722,17 @@ const FAQSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.2 }}
         >
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion type="single" collapsible className="space-y-3">
             {FAQS.map((faq, index) => (
               <AccordionItem 
                 key={index} 
                 value={`item-${index}`}
-                className="glass-dark rounded-2xl border-0 px-6 overflow-hidden"
+                className="bg-[#141414] border border-white/5 rounded-lg px-6 overflow-hidden data-[state=open]:border-[#E50914]/30"
               >
-                <AccordionTrigger className="text-white hover:text-violet-400 hover:no-underline text-left py-6">
+                <AccordionTrigger className="text-white hover:text-[#E50914] hover:no-underline text-left py-5 font-semibold">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-400 pb-6">
+                <AccordionContent className="text-gray-400 pb-5">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -923,47 +750,47 @@ const ContactSection = () => {
   const isInView = useInView(ref, { once: true })
 
   return (
-    <section id="contact" ref={ref} className="py-24 relative">
+    <section id="contact" ref={ref} className="py-24 bg-black">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          className="max-w-4xl mx-auto text-center"
+          className="max-w-3xl mx-auto text-center"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Get in <span className="gradient-text">Touch</span>
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+            GET IN <span className="text-[#E50914]">TOUCH</span>
           </h2>
-          <p className="text-gray-400 text-lg mb-12">We're here to help 24/7</p>
+          <p className="text-gray-500 text-lg mb-12">We're available 24/7 to help you</p>
 
           <div className="grid md:grid-cols-2 gap-6">
             <motion.a
               href="https://wa.me/14509127880"
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="glass rounded-3xl p-8 flex flex-col items-center gap-4 hover:bg-green-500/10 transition-colors cursor-pointer group"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-[#141414] border border-white/10 rounded-xl p-8 flex flex-col items-center gap-4 hover:border-green-500/50 transition-all cursor-pointer group"
             >
-              <div className="w-16 h-16 rounded-2xl bg-green-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <MessageCircle className="w-8 h-8 text-green-400" />
+              <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center group-hover:bg-green-500/20 transition-colors">
+                <MessageCircle className="w-8 h-8 text-green-500" />
               </div>
-              <h3 className="text-xl font-semibold text-white">WhatsApp</h3>
-              <p className="text-gray-400">+1 (450) 912-7880</p>
+              <h3 className="text-xl font-bold text-white">WhatsApp</h3>
+              <p className="text-gray-500">+1 (450) 912-7880</p>
             </motion.a>
 
             <motion.a
               href="https://t.me/iptvusca"
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="glass rounded-3xl p-8 flex flex-col items-center gap-4 hover:bg-blue-500/10 transition-colors cursor-pointer group"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-[#141414] border border-white/10 rounded-xl p-8 flex flex-col items-center gap-4 hover:border-blue-500/50 transition-all cursor-pointer group"
             >
-              <div className="w-16 h-16 rounded-2xl bg-blue-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Send className="w-8 h-8 text-blue-400" />
+              <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
+                <Send className="w-8 h-8 text-blue-500" />
               </div>
-              <h3 className="text-xl font-semibold text-white">Telegram</h3>
-              <p className="text-gray-400">@iptvusca</p>
+              <h3 className="text-xl font-bold text-white">Telegram</h3>
+              <p className="text-gray-500">@iptvusca</p>
             </motion.a>
           </div>
         </motion.div>
@@ -975,17 +802,17 @@ const ContactSection = () => {
 // Footer
 const Footer = () => {
   return (
-    <footer className="py-12 border-t border-gray-800">
+    <footer className="py-8 bg-[#0a0a0a] border-t border-white/5">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center">
-              <Tv className="w-5 h-5 text-white" />
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-[#E50914] rounded flex items-center justify-center">
+              <Tv className="w-4 h-4 text-white" />
             </div>
-            <span className="text-xl font-bold gradient-text">IPTVUSCA</span>
+            <span className="text-lg font-bold text-white">IPTV<span className="text-[#E50914]">USCA</span></span>
           </div>
           
-          <p className="text-gray-500 text-sm">
+          <p className="text-gray-600 text-sm">
             © {new Date().getFullYear()} IPTVUSCA. All rights reserved.
           </p>
 
@@ -994,7 +821,7 @@ const Footer = () => {
               href="https://wa.me/14509127880" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-green-400 transition-colors"
+              className="text-gray-600 hover:text-green-500 transition-colors"
             >
               <MessageCircle className="w-5 h-5" />
             </a>
@@ -1002,7 +829,7 @@ const Footer = () => {
               href="https://t.me/iptvusca" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-blue-400 transition-colors"
+              className="text-gray-600 hover:text-blue-500 transition-colors"
             >
               <Send className="w-5 h-5" />
             </a>
@@ -1013,20 +840,18 @@ const Footer = () => {
   )
 }
 
-// Main App Component
+// Main App
 export default function App() {
   return (
-    <main className="min-h-screen bg-[#0a0a12]">
+    <main className="min-h-screen bg-[#0a0a0a]">
       <Navbar />
       <HeroSection />
       <DevicesSection />
       <FeaturesSection />
-      <TrialSection />
+      <CTASection />
       <CountriesSection />
       <PricingSection />
       <StatsSection />
-      <WhyChooseSection />
-      <FeaturesGrid />
       <FAQSection />
       <ContactSection />
       <Footer />
