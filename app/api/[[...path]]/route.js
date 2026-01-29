@@ -100,8 +100,29 @@ async function handleRoute(request, { params }) {
       return handleCORS(NextResponse.json(cleanSettings))
     }
 
-    // Update site settings (Admin)
+    // Update site settings (Admin) - PUT method
     if (route === '/settings' && method === 'PUT') {
+      const body = await request.json()
+      
+      const updateData = {
+        ...body,
+        id: 'site_settings',
+        updatedAt: new Date()
+      }
+      
+      const result = await db.collection('settings').updateOne(
+        { id: 'site_settings' },
+        { $set: updateData },
+        { upsert: true }
+      )
+      
+      console.log('Settings update result:', result)
+      
+      return handleCORS(NextResponse.json({ success: true, settings: updateData }))
+    }
+
+    // Update site settings (Admin) - POST method (alternative)
+    if (route === '/settings' && method === 'POST') {
       const body = await request.json()
       
       const updateData = {
