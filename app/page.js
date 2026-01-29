@@ -1053,7 +1053,7 @@ export default function App() {
       </AnimatePresence>
       <Navbar isDark={isDark} toggleTheme={toggleTheme} hasAlert={hasAlert} />
       <HeroSection setConfetti={setConfetti} hasAlert={hasAlert} />
-      <TrustStrip />
+      <CountriesCarousel />
       <FeaturesSection />
       <PricingSection pricingData={settings?.pricing} />
       <FAQSection faqsData={settings?.faqs} />
