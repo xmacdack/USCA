@@ -1102,6 +1102,7 @@ export default function App() {
   return (
     <main className="min-h-screen bg-white dark:bg-black transition-colors">
       <div className="noise-overlay" />
+      <FloatingSportsIcons />
       <MouseFollower />
       <Confetti active={confetti} />
       <AnimatePresence>
