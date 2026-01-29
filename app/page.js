@@ -1016,8 +1016,8 @@ export default function App() {
       <FeaturesSection />
       <VideoSection />
       <InteractiveCTA setConfetti={setConfetti} />
-      <PricingSection />
-      <FAQSection />
+      <PricingSection pricingData={settings?.pricing} />
+      <FAQSection faqsData={settings?.faqs} />
       <ContactSection />
       <Footer />
     </main>
