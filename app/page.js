@@ -156,7 +156,7 @@ const Particles = ({ count = 30 }) => {
       {particles.map(p => (
         <motion.div key={p.id} className="absolute rounded-full bg-[#E50914]"
           style={{ left: `${p.x}%`, width: p.size, height: p.size, bottom: -20 }}
-          animate={{ y: [0, -1500], opacity: [0, 1, 1, 0], rotate: [0, 360] }}
+          animate={{ y: [0, '-100vh'], opacity: [0, 1, 1, 0], rotate: [0, 360] }}
           transition={{ duration: p.duration, repeat: Infinity, delay: p.delay, ease: "linear" }} />
       ))}
     </div>
