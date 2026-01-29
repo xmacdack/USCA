@@ -172,7 +172,7 @@ const Confetti = ({ active }) => {
       {pieces.map(p => (
         <motion.div key={p.id} className="absolute w-3 h-3" style={{ left: `${p.x}%`, top: -20, background: p.color, borderRadius: Math.random() > 0.5 ? '50%' : '0' }}
           initial={{ y: 0, rotate: 0, opacity: 1 }}
-          animate={{ y: 1200, rotate: 720, opacity: [1, 1, 0] }}
+          animate={{ y: '100vh', rotate: 720, opacity: [1, 1, 0] }}
           transition={{ duration: 3, delay: p.delay, ease: "easeIn" }} />
       ))}
     </div>
