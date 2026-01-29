@@ -1157,8 +1157,6 @@ export default function App() {
       <HeroSection setConfetti={setConfetti} hasAlert={hasAlert} />
       <TrustStrip />
       <FeaturesSection />
-      <VideoSection />
-      <InteractiveCTA setConfetti={setConfetti} />
       <PricingSection pricingData={settings?.pricing} />
       <FAQSection faqsData={settings?.faqs} />
       <ContactSection />
