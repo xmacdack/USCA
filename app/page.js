@@ -516,7 +516,7 @@ const FeaturesSection = () => {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="features" ref={ref} className="py-16 relative overflow-hidden">
+    <section id="features" ref={ref} className="py-12 relative overflow-hidden">
       <div className="absolute inset-0 grid-pattern" />
       <FloatingOrb className="top-0 right-0" size={500} delay={0} />
       <FloatingOrb className="bottom-0 left-0" size={400} color="#ff4444" delay={3} />
@@ -575,7 +575,7 @@ const VideoSection = () => {
   const [muted, setMuted] = useState(true)
 
   return (
-    <section ref={ref} className="relative py-32 overflow-hidden">
+    <section ref={ref} className="relative py-20 overflow-hidden">
       <div className="absolute inset-0">
         <video autoPlay loop muted={muted} playsInline className="absolute inset-0 w-full h-full object-cover" poster="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=1920&q=80">
           <source src="https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smartphone-in-a-sofa-at-home-50261-large.mp4" type="video/mp4" />
@@ -614,7 +614,7 @@ const InteractiveCTA = ({ setConfetti }) => {
   const [hovered, setHovered] = useState(null)
 
   return (
-    <section ref={ref} className="py-32 relative overflow-hidden">
+    <section ref={ref} className="py-16 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-white dark:from-black via-gray-50 dark:via-gray-900 to-white dark:to-black" />
       <div className="absolute inset-0 dot-pattern opacity-30" />
       <FloatingOrb className="top-10 left-10" size={300} delay={0} />
@@ -655,7 +655,7 @@ const PricingSection = () => {
   ]
   
   return (
-    <section id="pricing" ref={ref} className="py-32 relative overflow-hidden">
+    <section id="pricing" ref={ref} className="py-16 relative overflow-hidden">
       <div className="absolute inset-0 grid-pattern" />
       <FloatingOrb className="top-20 right-0" size={500} delay={0} />
       <FloatingOrb className="bottom-20 left-0" size={400} color="#ff4444" delay={2} />
@@ -825,7 +825,7 @@ const FAQSection = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
   return (
-    <section id="faq" ref={ref} className="py-24 relative overflow-hidden">
+    <section id="faq" ref={ref} className="py-12 relative overflow-hidden">
       <div className="absolute inset-0 bg-gray-50 dark:bg-gray-900" />
       <div className="absolute inset-0 dot-pattern opacity-50" />
       <div className="container mx-auto px-6 max-w-3xl relative z-10">
@@ -853,7 +853,7 @@ const ContactSection = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
   return (
-    <section ref={ref} className="py-24 relative overflow-hidden">
+    <section ref={ref} className="py-12 relative overflow-hidden">
       <FloatingOrb className="bottom-0 right-0" size={400} delay={0} />
       <div className="container mx-auto px-6 relative z-10">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} className="max-w-2xl mx-auto text-center">
