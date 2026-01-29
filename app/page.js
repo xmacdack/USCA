@@ -699,51 +699,68 @@ const FeaturesSection = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
-  return (
-    <section id="features" ref={ref} className="py-12 relative overflow-hidden">
-      <div className="absolute inset-0 grid-pattern" />
-      <FloatingOrb className="top-0 right-0" size={500} delay={0} />
-      <FloatingOrb className="bottom-0 left-0" size={400} color="#ff4444" delay={3} />
-      <Particles count={12} />
+  const featureGroups = [
+    {
+      title: 'Content',
+      features: [
+        { icon: Tv, title: '22,000+ Live Channels', desc: 'Sports, news, entertainment from 150+ countries' },
+        { icon: Film, title: '80,000+ VOD Library', desc: 'Movies, series, documentaries on demand' },
+      ]
+    },
+    {
+      title: 'Quality',
+      features: [
+        { icon: Zap, title: '4K Ultra HD', desc: 'Crystal clear picture quality with HDR support' },
+        { icon: Volume2, title: 'Premium Audio', desc: 'Dolby Digital and surround sound support' },
+      ]
+    },
+    {
+      title: 'Access',
+      features: [
+        { icon: Globe, title: 'Works Everywhere', desc: 'Fire Stick, Smart TV, iOS, Android, PC/Mac' },
+        { icon: Shield, title: 'VPN Compatible', desc: 'Stream privately from anywhere' },
+      ]
+    },
+    {
+      title: 'Service',
+      features: [
+        { icon: Headphones, title: '24/7 Support', desc: 'WhatsApp & Telegram assistance anytime' },
+        { icon: Clock, title: 'Instant Activation', desc: 'Start watching within minutes of signup' },
+      ]
+    },
+  ]
 
-      <div className="container mx-auto px-6 relative z-10">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} className="text-center mb-8">
-          <motion.span className="section-label mb-4 inline-flex" whileHover={{ scale: 1.05 }}><Sparkles className="w-4 h-4" /> Features</motion.span>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mt-4">Everything you need.</h2>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-gray-300 dark:text-gray-700">Nothing you don't.</h2>
+  return (
+    <section id="features" ref={ref} className="py-16 bg-white dark:bg-black">
+      <div className="container mx-auto px-6">
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white">Everything you need to stream</h2>
+          <p className="text-gray-500 dark:text-gray-400 mt-3 max-w-xl mx-auto">Premium IPTV service with the features that matter most</p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.1 }} className="md:col-span-2 bento-card rounded-2xl p-6 md:p-8 relative overflow-hidden group">
-            <motion.div className="absolute -top-20 -right-20 w-40 h-40 bg-[#E50914]/10 rounded-full blur-3xl" animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 4, repeat: Infinity }} />
-            <div className="relative z-10">
-              <div className="flex items-start justify-between mb-6">
-                <motion.div className="w-14 h-14 bg-[#E50914]/10 rounded-xl flex items-center justify-center" whileHover={{ rotate: 10, scale: 1.1 }}><Tv className="w-7 h-7 text-[#E50914]" /></motion.div>
-                <span className="text-5xl md:text-7xl font-bold text-gray-100 dark:text-gray-800 group-hover:text-[#E50914]/10 transition-colors">22K+</span>
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {featureGroups.map((group, groupIndex) => (
+            <motion.div
+              key={group.title}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: groupIndex * 0.1 }}
+              className="space-y-4"
+            >
+              <h3 className="text-xs font-semibold text-[#E50914] uppercase tracking-wider mb-4">{group.title}</h3>
+              <div className="space-y-4">
+                {group.features.map((feature, index) => (
+                  <div key={index} className="flex gap-4 p-4 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700 transition-colors">
+                    <div className="w-10 h-10 rounded-lg bg-[#E50914]/10 flex items-center justify-center flex-shrink-0">
+                      <feature.icon className="w-5 h-5 text-[#E50914]" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 dark:text-white">{feature.title}</h4>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{feature.desc}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <h3 className="text-xl md:text-2xl font-bold mb-2">Live TV Channels</h3>
-              <p className="text-gray-500 dark:text-gray-400">Premium channels from every corner of the globe. Sports, news, entertainment, kids content, and more.</p>
-            </div>
-          </motion.div>
-          {[{ icon: Zap, title: '4K Ultra HD', desc: 'Crystal clear picture quality.', delay: 0.2 }, { icon: Film, title: '80K+ VOD', desc: 'Movies, series, documentaries.', delay: 0.3 }].map((item, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: item.delay }} className="bento-card rounded-2xl p-5 group">
-              <motion.div className="w-10 h-10 bg-[#E50914]/10 rounded-lg flex items-center justify-center mb-4" whileHover={{ rotate: 10, scale: 1.1 }}><item.icon className="w-5 h-5 text-[#E50914]" /></motion.div>
-              <h3 className="text-lg font-bold mb-1">{item.title}</h3>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">{item.desc}</p>
-            </motion.div>
-          ))}
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.4 }} className="md:col-span-2 bento-card rounded-2xl p-5">
-            <div className="flex flex-wrap gap-2 mb-4">
-              {['Fire Stick', 'Android TV', 'Smart TV', 'iOS', 'Android', 'PC/Mac'].map((d, i) => (<motion.span key={i} className="bg-gray-100 dark:bg-gray-800 px-3 py-1.5 rounded-full text-xs font-medium hover:bg-[#E50914] hover:text-white transition-all cursor-default" whileHover={{ scale: 1.05 }}>{d}</motion.span>))}
-            </div>
-            <h3 className="text-lg font-bold mb-1">Works Everywhere</h3>
-            <p className="text-gray-500 dark:text-gray-400 text-sm">Stream on any device, anywhere in the world.</p>
-          </motion.div>
-          {[{ icon: Shield, title: 'VPN Compatible', desc: 'Private streaming.', delay: 0.5 }, { icon: Headphones, title: '24/7 Support', desc: 'Always here to help.', delay: 0.6 }, { icon: Clock, title: 'Instant Activation', desc: 'Start in minutes.', delay: 0.7 }].map((item, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: item.delay }} className="bento-card rounded-2xl p-5 group">
-              <motion.div whileHover={{ rotate: 10, scale: 1.1 }}><item.icon className="w-8 h-8 text-[#E50914] mb-3" /></motion.div>
-              <h3 className="text-lg font-bold mb-1">{item.title}</h3>
-              <p className="text-gray-500 dark:text-gray-400 text-sm">{item.desc}</p>
             </motion.div>
           ))}
         </div>
