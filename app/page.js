@@ -590,34 +590,46 @@ const HeroSection = ({ setConfetti, hasAlert }) => {
               </motion.span>
             </motion.div>
             <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[0.95] mb-6">
-              <span className="block">Stream everything.</span>
-              <span className="block text-gradient">Pay almost nothing.</span>
+              <span className="block">Premium IPTV</span>
+              <span className="block text-gradient">streaming made simple.</span>
             </motion.h1>
-            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="text-lg md:text-xl text-gray-500 dark:text-gray-400 mb-8 max-w-xl mx-auto lg:mx-0">
-              22,000+ live channels. 80,000+ movies & series. Crystal clear 4K. Starting at just <span className="text-[#E50914] font-semibold">$8.33/month</span>.
+            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+              Access 22,000+ live channels and 80,000+ movies in crystal clear 4K. 
+              Instant activation, cancel anytime.
             </motion.p>
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button size="lg" className="btn-premium text-lg px-8 py-6 rounded-full font-semibold" onClick={() => { setConfetti(true); setTimeout(() => setConfetti(false), 3000); document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' }) }}>
-                  Start Watching <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button size="lg" className="btn-outline-premium text-lg px-8 py-6 rounded-full font-semibold" onClick={() => window.open('https://iptvusca.sell.app/product/24-hours-trial?info=reviews', '_blank')}>
-                  <PlayCircle className="w-5 h-5 mr-2" /> Free Trial
-                </Button>
-              </motion.div>
+            
+            {/* CTAs - Clear Hierarchy */}
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start">
+              <Button 
+                size="lg" 
+                className="bg-[#E50914] hover:bg-[#c7080f] text-white px-8 py-6 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all" 
+                onClick={() => window.open('https://iptvusca.sell.app/product/24-hours-trial?info=reviews', '_blank')}
+              >
+                Start Free Trial
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline"
+                className="border-gray-300 dark:border-gray-600 hover:border-[#E50914] hover:text-[#E50914] px-8 py-6 rounded-full font-medium transition-all" 
+                onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                See Plans
+              </Button>
             </motion.div>
-            {/* Stats */}
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="flex flex-wrap justify-center lg:justify-start gap-8 mt-10">
-              {[{ value: '22000', label: 'Channels', suffix: '+', icon: Tv }, { value: '80000', label: 'Movies', suffix: '+', icon: Film }, { value: '99', label: 'Uptime', suffix: '%', icon: Wifi }].map((stat, i) => (
-                <motion.div key={i} className="text-center" whileHover={{ scale: 1.1 }}>
-                  <div className="flex items-center gap-2 justify-center mb-1">
-                    <stat.icon className="w-5 h-5 text-[#E50914]" />
-                    <span className="text-3xl font-bold"><Counter value={stat.value} suffix={stat.suffix} /></span>
-                  </div>
-                  <span className="text-gray-400 text-sm uppercase tracking-wider">{stat.label}</span>
-                </motion.div>
+            
+            {/* 3 Proof Points - Cleaner */}
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="flex flex-wrap justify-center lg:justify-start gap-6 mt-10 pt-8 border-t border-gray-200 dark:border-gray-800">
+              {[
+                { value: '22000', label: 'Live Channels', suffix: '+' }, 
+                { value: '80000', label: 'Movies & Shows', suffix: '+' }, 
+                { value: '24', label: 'Hour Activation', suffix: 'h' }
+              ].map((stat, i) => (
+                <div key={i} className="text-center">
+                  <span className="text-2xl font-semibold text-gray-900 dark:text-white">
+                    <Counter value={stat.value} suffix={stat.suffix} />
+                  </span>
+                  <p className="text-xs text-gray-500 mt-1">{stat.label}</p>
+                </div>
               ))}
             </motion.div>
           </div>
