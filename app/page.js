@@ -339,7 +339,7 @@ const AlertBanner = ({ settings, onClose }) => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: -100, opacity: 0 }}
-      className="alert-banner text-white py-3 px-4 flex items-center justify-center gap-4 relative z-[100]"
+      className="alert-banner text-white py-3 px-4 flex items-center justify-center gap-4 fixed top-0 left-0 right-0 z-[60]"
     >
       <motion.div 
         className="flex items-center gap-2"
