@@ -698,9 +698,12 @@ const InteractiveCTA = ({ setConfetti }) => {
 }
 
 // ============== PRICING ==============
-const PricingSection = () => {
+const PricingSection = ({ pricingData }) => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
+  
+  // Use data from API if available, otherwise fall back to defaults
+  const pricing = pricingData || PRICING
   
   const features = [
     '22,000+ Live Channels',
