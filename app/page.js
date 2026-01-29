@@ -844,80 +844,100 @@ const PricingSection = ({ pricingData }) => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
   
-  // Use data from API if available, otherwise fall back to defaults
   const pricing = pricingData || PRICING
   
-  const features = [
-    '22,000+ Live Channels',
-    '80,000+ Movies & Series',
-    '4K Ultra HD Quality',
-    'VPN Compatible',
-    '24/7 Premium Support',
-    'Instant Activation',
-    'All Devices Supported',
-    'Free Regular Updates'
-  ]
-  
   return (
-    <section id="pricing" ref={ref} className="py-16 relative overflow-hidden">
-      <div className="absolute inset-0 grid-pattern" />
-      <FloatingOrb className="top-20 right-0" size={500} delay={0} />
-      <FloatingOrb className="bottom-20 left-0" size={400} color="#ff4444" delay={2} />
-      <Particles count={10} />
-      
-      <div className="container mx-auto px-6 relative z-10">
+    <section id="pricing" ref={ref} className="py-16 bg-gray-50 dark:bg-gray-900">
+      <div className="container mx-auto px-6">
         {/* Header */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }} 
           animate={isInView ? { opacity: 1, y: 0 } : {}} 
-          className="text-center mb-10"
+          className="text-center mb-12"
         >
-          <motion.span 
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#E50914]/10 to-[#ff4444]/10 border border-[#E50914]/20 text-[#E50914] px-5 py-2 rounded-full text-sm font-bold mb-6"
-            whileHover={{ scale: 1.05 }}
-          >
-            <Crown className="w-4 h-4" />
-            GOLD SERVER
-          </motion.span>
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight">
-            Choose your <span className="text-gradient">plan</span>
+          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white">
+            Simple, transparent pricing
           </h2>
-          <p className="text-gray-500 dark:text-gray-400 text-lg mt-4 max-w-xl mx-auto">
-            All plans include everything. No hidden fees. Cancel anytime.
+          <p className="text-gray-500 dark:text-gray-400 mt-3 max-w-xl mx-auto">
+            All plans include every feature. Choose your subscription length.
           </p>
         </motion.div>
 
         {/* Pricing Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
           {pricing.map((plan, index) => (
             <motion.div 
               key={index} 
-              initial={{ opacity: 0, y: 40 }} 
+              initial={{ opacity: 0, y: 30 }} 
               animate={isInView ? { opacity: 1, y: 0 } : {}} 
-              transition={{ delay: index * 0.1 + 0.2 }}
-              className="relative"
+              transition={{ delay: index * 0.1 }}
+              className={`relative rounded-2xl p-6 transition-all ${
+                plan.featured 
+                  ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900 shadow-xl scale-105' 
+                  : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+              }`}
             >
-              {/* Badge */}
-              {(plan.featured || plan.bestValue) && (
-                <motion.div 
-                  className="absolute -top-4 left-0 right-0 flex justify-center z-10"
-                  initial={{ scale: 0, y: 10 }}
-                  animate={isInView ? { scale: 1, y: 0 } : {}}
-                  transition={{ delay: index * 0.1 + 0.4, type: "spring" }}
-                >
-                  <span className={`px-4 py-1.5 rounded-full text-xs font-bold shadow-lg ${
-                    plan.featured 
-                      ? 'bg-[#E50914] text-white shadow-red-500/30' 
-                      : 'bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-200 text-white dark:text-black'
-                  }`}>
-                    {plan.featured ? '⭐ MOST POPULAR' : '💎 BEST VALUE'}
-                  </span>
-                </motion.div>
+              {/* Badge - Minimal */}
+              {plan.featured && (
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-medium bg-[#E50914] text-white px-3 py-1 rounded-full">
+                  Most Popular
+                </span>
+              )}
+              {plan.bestValue && !plan.featured && (
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-medium bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-3 py-1 rounded-full">
+                  Best Value
+                </span>
               )}
               
-              {/* Card */}
-              <motion.div
-                className={`h-full rounded-3xl p-6 pt-8 transition-all duration-300 ${
+              {/* Duration */}
+              <p className={`text-sm font-medium ${plan.featured ? 'text-gray-400 dark:text-gray-500' : 'text-gray-500'}`}>
+                {plan.duration}
+              </p>
+              
+              {/* Price */}
+              <div className="mt-3 mb-4">
+                <span className={`text-4xl font-bold ${plan.featured ? 'text-white dark:text-gray-900' : 'text-gray-900 dark:text-white'}`}>
+                  ${plan.price}
+                </span>
+                <span className={`text-sm ml-1 ${plan.featured ? 'text-gray-400 dark:text-gray-500' : 'text-gray-500'}`}>
+                  total
+                </span>
+              </div>
+              
+              {/* Effective Monthly */}
+              <p className={`text-sm mb-6 ${plan.featured ? 'text-gray-400 dark:text-gray-500' : 'text-gray-500'}`}>
+                ${plan.monthly}/month effective
+              </p>
+              
+              {/* CTA - Same label everywhere */}
+              <Button 
+                className={`w-full py-5 rounded-xl font-medium transition-all ${
+                  plan.featured 
+                    ? 'bg-[#E50914] hover:bg-[#c7080f] text-white' 
+                    : 'bg-gray-900 dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-100 text-white dark:text-gray-900'
+                }`}
+                onClick={() => window.open(plan.link, '_blank')}
+              >
+                Choose Plan
+              </Button>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Guarantee - Once below grid */}
+        <motion.p 
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.6 }}
+          className="text-center text-sm text-gray-500 mt-8"
+        >
+          <Shield className="w-4 h-4 inline mr-1" />
+          7-day money-back guarantee on all plans
+        </motion.p>
+      </div>
+    </section>
+  )
+}
                   plan.featured 
                     ? 'bg-gradient-to-b from-gray-900 via-gray-900 to-black text-white border-2 border-[#E50914] shadow-2xl shadow-red-500/20' 
                     : 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-[#E50914]/50 hover:shadow-xl hover:shadow-red-500/5'
