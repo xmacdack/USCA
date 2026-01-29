@@ -883,9 +883,13 @@ const PricingSection = ({ pricingData }) => {
 }
 
 // ============== FAQ ==============
-const FAQSection = () => {
+const FAQSection = ({ faqsData }) => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
+  
+  // Use data from API if available, otherwise fall back to defaults
+  const faqs = faqsData || FAQS
+  
   return (
     <section id="faq" ref={ref} className="py-12 relative overflow-hidden">
       <div className="absolute inset-0 bg-gray-50 dark:bg-gray-900" />
@@ -897,7 +901,7 @@ const FAQSection = () => {
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.2 }}>
           <Accordion type="single" collapsible className="space-y-3">
-            {FAQS.map((faq, i) => (
+            {faqs.map((faq, i) => (
               <AccordionItem key={i} value={`item-${i}`} className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 px-6 hover:border-[#E50914]/50 hover:shadow-lg transition-all">
                 <AccordionTrigger className="hover:no-underline text-left py-5 font-semibold text-lg hover:text-[#E50914] transition-colors">{faq.q}</AccordionTrigger>
                 <AccordionContent className="text-gray-500 dark:text-gray-400 pb-5 text-base">{faq.a}</AccordionContent>
