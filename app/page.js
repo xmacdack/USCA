@@ -217,6 +217,103 @@ const Particles = ({ count = 30 }) => {
   )
 }
 
+// ============== FLOATING SPORTS ICONS ==============
+const FloatingSportsIcons = () => {
+  const sportsIcons = [
+    // Soccer Ball
+    { id: 'soccer', x: 5, y: 20, delay: 0, duration: 25, size: 45, icon: (
+      <svg viewBox="0 0 100 100" className="w-full h-full">
+        <circle cx="50" cy="50" r="48" fill="none" stroke="#E50914" strokeWidth="2" opacity="0.3"/>
+        <path d="M50 2 L50 20 M50 80 L50 98 M2 50 L20 50 M80 50 L98 50" stroke="#E50914" strokeWidth="2" opacity="0.3"/>
+        <polygon points="50,15 35,35 20,30 25,50 15,65 35,65 50,85 65,65 85,65 75,50 80,30 65,35" fill="none" stroke="#E50914" strokeWidth="2" opacity="0.4"/>
+      </svg>
+    )},
+    // Basketball
+    { id: 'basketball', x: 92, y: 35, delay: 3, duration: 22, size: 40, icon: (
+      <svg viewBox="0 0 100 100" className="w-full h-full">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#E50914" strokeWidth="3" opacity="0.4"/>
+        <path d="M5 50 Q 50 20 95 50" fill="none" stroke="#E50914" strokeWidth="2" opacity="0.3"/>
+        <path d="M5 50 Q 50 80 95 50" fill="none" stroke="#E50914" strokeWidth="2" opacity="0.3"/>
+        <line x1="50" y1="5" x2="50" y2="95" stroke="#E50914" strokeWidth="2" opacity="0.3"/>
+      </svg>
+    )},
+    // Football
+    { id: 'football', x: 85, y: 70, delay: 6, duration: 28, size: 38, icon: (
+      <svg viewBox="0 0 100 70" className="w-full h-full">
+        <ellipse cx="50" cy="35" rx="45" ry="30" fill="none" stroke="#E50914" strokeWidth="2" opacity="0.35"/>
+        <path d="M30 35 L70 35 M35 25 L35 45 M45 20 L45 50 M55 20 L55 50 M65 25 L65 45" stroke="#E50914" strokeWidth="2" opacity="0.3"/>
+      </svg>
+    )},
+    // Hockey Stick
+    { id: 'hockey', x: 10, y: 75, delay: 9, duration: 30, size: 50, icon: (
+      <svg viewBox="0 0 100 100" className="w-full h-full">
+        <path d="M20 10 L20 70 Q20 85 35 85 L60 85" fill="none" stroke="#E50914" strokeWidth="4" strokeLinecap="round" opacity="0.35"/>
+        <circle cx="75" cy="60" r="8" fill="none" stroke="#E50914" strokeWidth="2" opacity="0.4"/>
+      </svg>
+    )},
+    // Tennis Racket
+    { id: 'tennis', x: 88, y: 15, delay: 4, duration: 26, size: 42, icon: (
+      <svg viewBox="0 0 100 100" className="w-full h-full">
+        <ellipse cx="50" cy="35" rx="30" ry="32" fill="none" stroke="#E50914" strokeWidth="2" opacity="0.35"/>
+        <line x1="50" y1="67" x2="50" y2="95" stroke="#E50914" strokeWidth="4" strokeLinecap="round" opacity="0.35"/>
+        <path d="M25 35 L75 35 M35 15 L35 55 M50 10 L50 60 M65 15 L65 55" stroke="#E50914" strokeWidth="1" opacity="0.25"/>
+      </svg>
+    )},
+    // Baseball
+    { id: 'baseball', x: 15, y: 45, delay: 7, duration: 24, size: 35, icon: (
+      <svg viewBox="0 0 100 100" className="w-full h-full">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#E50914" strokeWidth="2" opacity="0.35"/>
+        <path d="M20 30 Q35 50 20 70" fill="none" stroke="#E50914" strokeWidth="2" opacity="0.4"/>
+        <path d="M80 30 Q65 50 80 70" fill="none" stroke="#E50914" strokeWidth="2" opacity="0.4"/>
+      </svg>
+    )},
+    // Golf Ball
+    { id: 'golf', x: 75, y: 85, delay: 2, duration: 20, size: 30, icon: (
+      <svg viewBox="0 0 100 100" className="w-full h-full">
+        <circle cx="50" cy="50" r="40" fill="none" stroke="#E50914" strokeWidth="2" opacity="0.3"/>
+        <circle cx="35" cy="40" r="3" fill="#E50914" opacity="0.3"/>
+        <circle cx="50" cy="35" r="3" fill="#E50914" opacity="0.3"/>
+        <circle cx="65" cy="40" r="3" fill="#E50914" opacity="0.3"/>
+        <circle cx="40" cy="55" r="3" fill="#E50914" opacity="0.3"/>
+        <circle cx="60" cy="55" r="3" fill="#E50914" opacity="0.3"/>
+        <circle cx="50" cy="65" r="3" fill="#E50914" opacity="0.3"/>
+      </svg>
+    )},
+    // Boxing Glove
+    { id: 'boxing', x: 3, y: 60, delay: 11, duration: 27, size: 40, icon: (
+      <svg viewBox="0 0 100 100" className="w-full h-full">
+        <path d="M25 60 Q15 40 30 25 Q50 15 70 25 Q85 40 75 60 Q70 75 50 80 Q30 75 25 60" fill="none" stroke="#E50914" strokeWidth="2" opacity="0.35"/>
+        <path d="M40 80 L40 95 M60 80 L60 95" stroke="#E50914" strokeWidth="3" opacity="0.3"/>
+      </svg>
+    )},
+  ]
+
+  return (
+    <div className="fixed inset-0 overflow-hidden pointer-events-none z-[1]">
+      {sportsIcons.map((item) => (
+        <motion.div
+          key={item.id}
+          className="absolute"
+          style={{ left: `${item.x}%`, top: `${item.y}%`, width: item.size, height: item.size }}
+          animate={{ 
+            y: [-20, 20, -20],
+            x: [-10, 10, -10],
+            rotate: [0, 10, -10, 0],
+          }}
+          transition={{ 
+            duration: item.duration, 
+            repeat: Infinity, 
+            delay: item.delay,
+            ease: "easeInOut"
+          }}
+        >
+          {item.icon}
+        </motion.div>
+      ))}
+    </div>
+  )
+}
+
 // ============== CONFETTI ==============
 const Confetti = ({ active }) => {
   if (!active) return null
