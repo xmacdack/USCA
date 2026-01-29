@@ -340,33 +340,33 @@ const Navbar = ({ isDark, toggleTheme, hasAlert }) => {
     <motion.nav 
       initial={{ y: -100 }} 
       animate={{ y: 0 }} 
-      className={`fixed left-0 right-0 z-50 transition-all duration-500 ${hasAlert ? 'top-12' : 'top-0'} ${scrolled ? 'bg-white/95 dark:bg-black/95 backdrop-blur-xl shadow-xl shadow-black/5 dark:shadow-white/5' : 'bg-transparent'}`}
+      className={`fixed left-0 right-0 z-50 transition-all duration-500 ${hasAlert ? 'top-12' : 'top-0'} ${scrolled ? 'bg-white/98 dark:bg-gray-900/98 backdrop-blur-xl shadow-lg border-b border-gray-200/50 dark:border-gray-700/50' : 'bg-transparent'}`}
     >
       <div className="container mx-auto px-6">
-        <div className={`flex items-center justify-between transition-all duration-300 ${scrolled ? 'py-3' : 'py-5'}`}>
+        <div className={`flex items-center justify-between transition-all duration-300 ${scrolled ? 'py-2' : 'py-4'}`}>
           {/* Logo */}
           <motion.a href="#" className="flex items-center gap-3 group" whileHover={{ scale: 1.02 }}>
             <motion.div 
-              className="w-11 h-11 bg-gradient-to-br from-[#E50914] to-[#ff4444] rounded-xl flex items-center justify-center shadow-lg shadow-red-500/25"
+              className="w-10 h-10 bg-gradient-to-br from-[#E50914] to-[#ff4444] rounded-xl flex items-center justify-center shadow-lg shadow-red-500/25"
               whileHover={{ rotate: 5, scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400 }}
             >
               <Tv className="w-5 h-5 text-white" />
             </motion.div>
             <div className="flex flex-col">
-              <span className="text-xl font-bold leading-tight">IPTV<span className="text-[#E50914]">USCA</span></span>
-              <span className="text-[10px] text-gray-400 uppercase tracking-widest hidden sm:block">Premium Streaming</span>
+              <span className="text-lg font-bold leading-tight">IPTV<span className="text-[#E50914]">USCA</span></span>
+              <span className="text-[9px] text-gray-400 uppercase tracking-widest hidden sm:block">Premium Streaming</span>
             </div>
           </motion.a>
 
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center">
-            <div className="flex items-center bg-gray-100/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full p-1.5">
+          {/* Desktop Nav - Center */}
+          <div className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2">
+            <div className={`flex items-center rounded-full p-1 transition-all ${scrolled ? 'bg-gray-100 dark:bg-gray-800' : 'bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm shadow-lg'}`}>
               {navItems.map((item) => (
                 <motion.a
                   key={item.name}
                   href={`#${item.name.toLowerCase()}`}
-                  className={`relative flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                  className={`relative flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                     activeItem === item.name 
                       ? 'text-white' 
                       : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
