@@ -390,19 +390,23 @@ const FAQS = [
 const Counter = ({ value, suffix = '' }) => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
-  const [count, setCount] = useState(0)
+  const num = parseInt(value) || 0
+  const [count, setCount] = useState(num) // Start with real value!
+  
   useEffect(() => {
     if (isInView) {
-      const num = parseInt(value)
-      let current = 0
+      // Quick count up from 80% of the value
+      let current = num * 0.8
+      setCount(Math.floor(current))
       const timer = setInterval(() => {
-        current += num / 50
+        current += num / 30
         if (current >= num) { setCount(num); clearInterval(timer) }
         else setCount(Math.floor(current))
-      }, 30)
+      }, 40)
       return () => clearInterval(timer)
     }
-  }, [isInView, value])
+  }, [isInView, num])
+  
   return <span ref={ref}>{count.toLocaleString()}{suffix}</span>
 }
 
