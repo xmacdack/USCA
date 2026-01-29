@@ -211,12 +211,12 @@ const AlertBanner = ({ settings, onClose }) => {
 
 // ============== DATA ==============
 const COUNTRIES = [
-  { name: 'USA', flag: '🇺🇸' }, { name: 'Canada', flag: '🇨🇦' }, { name: 'UK', flag: '🇬🇧' },
-  { name: 'Germany', flag: '🇩🇪' }, { name: 'France', flag: '🇫🇷' }, { name: 'Sweden', flag: '🇸🇪' },
-  { name: 'Norway', flag: '🇳🇴' }, { name: 'Finland', flag: '🇫🇮' }, { name: 'Ireland', flag: '🇮🇪' },
-  { name: 'Spain', flag: '🇪🇸' }, { name: 'Italy', flag: '🇮🇹' }, { name: 'Australia', flag: '🇦🇺' },
-  { name: 'Netherlands', flag: '🇳🇱' }, { name: 'Belgium', flag: '🇧🇪' }, { name: 'Switzerland', flag: '🇨🇭' },
-  { name: 'Portugal', flag: '🇵🇹' }, { name: 'Brazil', flag: '🇧🇷' }, { name: 'Mexico', flag: '🇲🇽' }
+  { name: 'USA', code: 'us' }, { name: 'Canada', code: 'ca' }, { name: 'UK', code: 'gb' },
+  { name: 'Germany', code: 'de' }, { name: 'France', code: 'fr' }, { name: 'Sweden', code: 'se' },
+  { name: 'Norway', code: 'no' }, { name: 'Finland', code: 'fi' }, { name: 'Ireland', code: 'ie' },
+  { name: 'Spain', code: 'es' }, { name: 'Italy', code: 'it' }, { name: 'Australia', code: 'au' },
+  { name: 'Netherlands', code: 'nl' }, { name: 'Belgium', code: 'be' }, { name: 'Switzerland', code: 'ch' },
+  { name: 'Portugal', code: 'pt' }, { name: 'Brazil', code: 'br' }, { name: 'Mexico', code: 'mx' }
 ]
 
 const PRICING = [
