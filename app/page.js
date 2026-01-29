@@ -747,7 +747,7 @@ const PricingSection = ({ pricingData }) => {
 
         {/* Pricing Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-7xl mx-auto">
-          {PRICING.map((plan, index) => (
+          {pricing.map((plan, index) => (
             <motion.div 
               key={index} 
               initial={{ opacity: 0, y: 40 }} 
