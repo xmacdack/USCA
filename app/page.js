@@ -145,6 +145,60 @@ const FloatingOrb = ({ className = '', color = '#E50914', size = 300, delay = 0 
   />
 )
 
+// ============== MOUSE FOLLOWER ==============
+const MouseFollower = () => {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePos({ x: e.clientX, y: e.clientY })
+      setIsVisible(true)
+    }
+    const handleMouseLeave = () => setIsVisible(false)
+    
+    window.addEventListener('mousemove', handleMouseMove)
+    document.body.addEventListener('mouseleave', handleMouseLeave)
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      document.body.removeEventListener('mouseleave', handleMouseLeave)
+    }
+  }, [])
+
+  if (!isVisible) return null
+
+  return (
+    <>
+      {/* Main cursor glow */}
+      <motion.div
+        className="fixed pointer-events-none z-[9998] mix-blend-screen"
+        animate={{ x: mousePos.x - 150, y: mousePos.y - 150 }}
+        transition={{ type: "spring", damping: 30, stiffness: 200 }}
+        style={{
+          width: 300,
+          height: 300,
+          background: 'radial-gradient(circle, rgba(229, 9, 20, 0.15) 0%, transparent 70%)',
+          borderRadius: '50%',
+        }}
+      />
+      {/* Inner dot */}
+      <motion.div
+        className="fixed pointer-events-none z-[9998]"
+        animate={{ x: mousePos.x - 6, y: mousePos.y - 6 }}
+        transition={{ type: "spring", damping: 50, stiffness: 500 }}
+        style={{
+          width: 12,
+          height: 12,
+          background: '#E50914',
+          borderRadius: '50%',
+          boxShadow: '0 0 20px rgba(229, 9, 20, 0.5)',
+        }}
+      />
+    </>
+  )
+}
+
 // ============== PARTICLES ==============
 const Particles = ({ count = 30 }) => {
   const [particles] = useState(() => [...Array(count)].map((_, i) => ({
