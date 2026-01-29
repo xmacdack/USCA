@@ -1049,24 +1049,28 @@ const FAQSection = ({ faqsData }) => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
   
-  // Use data from API if available, otherwise fall back to defaults
-  const faqs = faqsData || FAQS
+  // Extended FAQs with operational ones
+  const defaultFaqs = [
+    ...FAQS,
+    { q: 'Do I need a VPN?', a: 'A VPN is not required but recommended for privacy. Our service works with all major VPN providers.' },
+    { q: 'How does setup work?', a: 'We support both Xtream Codes and M3U playlist formats. After purchase, you\'ll receive login credentials and step-by-step setup guides for your device.' }
+  ]
+  
+  const faqs = faqsData || defaultFaqs
   
   return (
-    <section id="faq" ref={ref} className="py-12 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gray-50 dark:bg-gray-900" />
-      <div className="absolute inset-0 dot-pattern opacity-50" />
-      <div className="container mx-auto px-6 max-w-3xl relative z-10">
+    <section id="faq" ref={ref} className="py-16 bg-white dark:bg-black">
+      <div className="container mx-auto px-6 max-w-2xl">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} className="text-center mb-10">
-          <span className="section-label mb-6 inline-flex">FAQ</span>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mt-6">Questions?</h2>
+          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white">Frequently asked questions</h2>
+          <p className="text-gray-500 mt-3">Everything you need to know about our IPTV service</p>
         </motion.div>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.2 }}>
-          <Accordion type="single" collapsible className="space-y-3">
+          <Accordion type="single" collapsible className="space-y-2">
             {faqs.map((faq, i) => (
-              <AccordionItem key={i} value={`item-${i}`} className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 px-6 hover:border-[#E50914]/50 hover:shadow-lg transition-all">
-                <AccordionTrigger className="hover:no-underline text-left py-5 font-semibold text-lg hover:text-[#E50914] transition-colors">{faq.q}</AccordionTrigger>
-                <AccordionContent className="text-gray-500 dark:text-gray-400 pb-5 text-base">{faq.a}</AccordionContent>
+              <AccordionItem key={i} value={`item-${i}`} className="bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 px-5">
+                <AccordionTrigger className="hover:no-underline text-left py-4 font-medium hover:text-[#E50914] transition-colors">{faq.q}</AccordionTrigger>
+                <AccordionContent className="text-gray-500 dark:text-gray-400 pb-4 text-sm leading-relaxed">{faq.a}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
