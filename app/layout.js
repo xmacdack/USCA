@@ -1,14 +1,14 @@
 import './globals.css'
 
 export const metadata = {
-  title: 'IPTVUSCA - Premium IPTV Streaming Service',
-  description: 'Stream high-quality Television Channels with IPTVUSCA. Reliable and affordable IPTV streaming services with 22K+ channels and 80K+ VOD content.',
+  title: 'IPTVUSCA - Premium IPTV Streaming',
+  description: 'Stream 22,000+ channels and 80,000+ movies in stunning 4K quality. The future of television is here.',
 }
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="dark">
-      <body className="antialiased bg-[#0a0a0a]">
+    <html lang="en">
+      <body className="antialiased">
         {children}
       </body>
     </html>
