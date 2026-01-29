@@ -1136,7 +1136,7 @@ export default function App() {
       </AnimatePresence>
       <Navbar isDark={isDark} toggleTheme={toggleTheme} hasAlert={hasAlert} />
       <HeroSection setConfetti={setConfetti} hasAlert={hasAlert} />
-      <CountriesCarousel />
+      <TrustStrip />
       <FeaturesSection />
       <VideoSection />
       <InteractiveCTA setConfetti={setConfetti} />
