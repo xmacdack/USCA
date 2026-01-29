@@ -73,10 +73,15 @@ export default function AdminPage() {
       const data = await res.json()
       if (data.success) {
         setSaved(true)
+        // Re-fetch settings to confirm save
+        await fetchSettings()
         setTimeout(() => setSaved(false), 3000)
+      } else {
+        alert('Failed to save settings')
       }
     } catch (err) {
-      console.error('Failed to save settings')
+      console.error('Failed to save settings:', err)
+      alert('Error saving settings')
     }
     setLoading(false)
   }
