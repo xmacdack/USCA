@@ -501,7 +501,12 @@ const CountriesCarousel = () => (
       <div className="animate-marquee">
         {[...COUNTRIES, ...COUNTRIES].map((country, i) => (
           <div key={i} className="country-flag-item mx-3 flex-shrink-0">
-            <span className="text-2xl">{country.flag}</span>
+            <img 
+              src={`https://flagcdn.com/w40/${country.code}.png`}
+              srcSet={`https://flagcdn.com/w80/${country.code}.png 2x`}
+              alt={country.name}
+              className="w-8 h-6 object-cover rounded shadow-sm"
+            />
             <span className="font-medium text-sm">{country.name}</span>
           </div>
         ))}
