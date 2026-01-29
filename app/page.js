@@ -268,44 +268,147 @@ const ThemeToggle = ({ isDark, toggle }) => (
 const Navbar = ({ isDark, toggleTheme, hasAlert }) => {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [activeItem, setActiveItem] = useState(null)
+  
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const navItems = [
+    { name: 'Features', icon: Sparkles },
+    { name: 'Pricing', icon: Crown },
+    { name: 'FAQ', icon: MessageCircle },
+  ]
+
   return (
-    <motion.nav initial={{ y: -100 }} animate={{ y: 0 }} className={`fixed left-0 right-0 z-50 transition-all duration-500 ${hasAlert ? 'top-12' : 'top-0'} ${scrolled ? 'bg-white/80 dark:bg-black/80 backdrop-blur-xl shadow-lg py-4' : 'bg-transparent py-6'}`}>
-      <div className="container mx-auto px-6 flex items-center justify-between">
-        <motion.a href="#" className="flex items-center gap-2" whileHover={{ scale: 1.05 }}>
-          <motion.div className="w-10 h-10 bg-[#E50914] rounded-xl flex items-center justify-center" whileHover={{ rotate: 10 }}>
-            <Tv className="w-5 h-5 text-white" />
-          </motion.div>
-          <span className="text-xl font-bold">IPTV<span className="text-[#E50914]">USCA</span></span>
-        </motion.a>
-        <div className="hidden md:flex items-center gap-8">
-          {['Features', 'Pricing', 'FAQ'].map(item => (
-            <motion.a key={item} href={`#${item.toLowerCase()}`} className="text-gray-600 dark:text-gray-300 hover:text-[#E50914] transition-colors text-sm font-medium" whileHover={{ y: -2 }}>{item}</motion.a>
-          ))}
-        </div>
-        <div className="hidden md:flex items-center gap-4">
-          <ThemeToggle isDark={isDark} toggle={toggleTheme} />
-          <Button variant="ghost" className="text-gray-600 dark:text-gray-300 hover:text-[#E50914]" onClick={() => window.open('https://iptvusca.sell.app/product/24-hours-trial?info=reviews', '_blank')}>Free Trial</Button>
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button className="btn-premium rounded-full px-6" onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}>Get Started</Button>
-          </motion.div>
-        </div>
-        <div className="flex md:hidden items-center gap-3">
-          <ThemeToggle isDark={isDark} toggle={toggleTheme} />
-          <button onClick={() => setMobileOpen(!mobileOpen)}>{mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}</button>
+    <motion.nav 
+      initial={{ y: -100 }} 
+      animate={{ y: 0 }} 
+      className={`fixed left-0 right-0 z-50 transition-all duration-500 ${hasAlert ? 'top-12' : 'top-0'} ${scrolled ? 'bg-white/95 dark:bg-black/95 backdrop-blur-xl shadow-xl shadow-black/5 dark:shadow-white/5' : 'bg-transparent'}`}
+    >
+      <div className="container mx-auto px-6">
+        <div className={`flex items-center justify-between transition-all duration-300 ${scrolled ? 'py-3' : 'py-5'}`}>
+          {/* Logo */}
+          <motion.a href="#" className="flex items-center gap-3 group" whileHover={{ scale: 1.02 }}>
+            <motion.div 
+              className="w-11 h-11 bg-gradient-to-br from-[#E50914] to-[#ff4444] rounded-xl flex items-center justify-center shadow-lg shadow-red-500/25"
+              whileHover={{ rotate: 5, scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 400 }}
+            >
+              <Tv className="w-5 h-5 text-white" />
+            </motion.div>
+            <div className="flex flex-col">
+              <span className="text-xl font-bold leading-tight">IPTV<span className="text-[#E50914]">USCA</span></span>
+              <span className="text-[10px] text-gray-400 uppercase tracking-widest hidden sm:block">Premium Streaming</span>
+            </div>
+          </motion.a>
+
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex items-center">
+            <div className="flex items-center bg-gray-100/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full p-1.5">
+              {navItems.map((item) => (
+                <motion.a
+                  key={item.name}
+                  href={`#${item.name.toLowerCase()}`}
+                  className={`relative flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                    activeItem === item.name 
+                      ? 'text-white' 
+                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                  }`}
+                  onMouseEnter={() => setActiveItem(item.name)}
+                  onMouseLeave={() => setActiveItem(null)}
+                  whileHover={{ scale: 1.02 }}
+                >
+                  {activeItem === item.name && (
+                    <motion.div
+                      layoutId="navBg"
+                      className="absolute inset-0 bg-[#E50914] rounded-full"
+                      initial={false}
+                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10 flex items-center gap-2">
+                    <item.icon className="w-4 h-4" />
+                    {item.name}
+                  </span>
+                </motion.a>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Side */}
+          <div className="hidden lg:flex items-center gap-3">
+            <ThemeToggle isDark={isDark} toggle={toggleTheme} />
+            
+            <motion.button 
+              className="flex items-center gap-2 px-4 py-2.5 text-gray-600 dark:text-gray-300 hover:text-[#E50914] transition-colors text-sm font-medium"
+              onClick={() => window.open('https://iptvusca.sell.app/product/24-hours-trial?info=reviews', '_blank')}
+              whileHover={{ scale: 1.05 }}
+            >
+              <PlayCircle className="w-4 h-4" />
+              Free Trial
+            </motion.button>
+            
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button 
+                className="btn-premium rounded-full px-6 py-2.5 flex items-center gap-2 shadow-lg shadow-red-500/25"
+                onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                <Rocket className="w-4 h-4" />
+                Get Started
+              </Button>
+            </motion.div>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="flex lg:hidden items-center gap-3">
+            <ThemeToggle isDark={isDark} toggle={toggleTheme} />
+            <motion.button 
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800"
+              whileTap={{ scale: 0.95 }}
+            >
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </motion.button>
+          </div>
         </div>
       </div>
+
+      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="md:hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl border-t border-gray-200 dark:border-gray-800">
-            <div className="container mx-auto px-6 py-6 flex flex-col gap-4">
-              {['Features', 'Pricing', 'FAQ'].map(item => (<a key={item} href={`#${item.toLowerCase()}`} className="py-2" onClick={() => setMobileOpen(false)}>{item}</a>))}
-              <Button className="btn-premium w-full rounded-full" onClick={() => { setMobileOpen(false); document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' }) }}>Get Started</Button>
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }} 
+            animate={{ opacity: 1, height: 'auto' }} 
+            exit={{ opacity: 0, height: 0 }} 
+            className="lg:hidden bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800"
+          >
+            <div className="container mx-auto px-6 py-6">
+              <div className="flex flex-col gap-2">
+                {navItems.map((item) => (
+                  <motion.a 
+                    key={item.name}
+                    href={`#${item.name.toLowerCase()}`}
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    onClick={() => setMobileOpen(false)}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <item.icon className="w-5 h-5 text-[#E50914]" />
+                    <span className="font-medium">{item.name}</span>
+                  </motion.a>
+                ))}
+              </div>
+              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-800">
+                <Button 
+                  className="btn-premium w-full rounded-full py-6 flex items-center justify-center gap-2"
+                  onClick={() => { setMobileOpen(false); document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' }) }}
+                >
+                  <Rocket className="w-5 h-5" />
+                  Get Started Now
+                </Button>
+              </div>
             </div>
           </motion.div>
         )}
