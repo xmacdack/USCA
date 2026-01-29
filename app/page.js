@@ -523,7 +523,7 @@ const FeaturesSection = () => {
       <Particles count={12} />
 
       <div className="container mx-auto px-6 relative z-10">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} className="text-center mb-12">
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} className="text-center mb-8">
           <motion.span className="section-label mb-4 inline-flex" whileHover={{ scale: 1.05 }}><Sparkles className="w-4 h-4" /> Features</motion.span>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mt-4">Everything you need.</h2>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-gray-300 dark:text-gray-700">Nothing you don't.</h2>
@@ -666,7 +666,7 @@ const PricingSection = () => {
         <motion.div 
           initial={{ opacity: 0, y: 30 }} 
           animate={isInView ? { opacity: 1, y: 0 } : {}} 
-          className="text-center mb-20"
+          className="text-center mb-10"
         >
           <motion.span 
             className="inline-flex items-center gap-2 bg-gradient-to-r from-[#E50914]/10 to-[#ff4444]/10 border border-[#E50914]/20 text-[#E50914] px-5 py-2 rounded-full text-sm font-bold mb-6"
@@ -800,7 +800,7 @@ const PricingSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.8 }}
-          className="flex flex-wrap items-center justify-center gap-6 mt-16 text-gray-400 text-sm"
+          className="flex flex-wrap items-center justify-center gap-6 mt-10 text-gray-400 text-sm"
         >
           <div className="flex items-center gap-2">
             <Shield className="w-5 h-5 text-green-500" />
@@ -829,7 +829,7 @@ const FAQSection = () => {
       <div className="absolute inset-0 bg-gray-50 dark:bg-gray-900" />
       <div className="absolute inset-0 dot-pattern opacity-50" />
       <div className="container mx-auto px-6 max-w-3xl relative z-10">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} className="text-center mb-16">
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} className="text-center mb-10">
           <span className="section-label mb-6 inline-flex">FAQ</span>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight mt-6">Questions?</h2>
         </motion.div>
@@ -858,7 +858,7 @@ const ContactSection = () => {
       <div className="container mx-auto px-6 relative z-10">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} className="max-w-2xl mx-auto text-center">
           <span className="section-label mb-6 inline-flex"><MessageCircle className="w-4 h-4" /> Contact</span>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mt-6 mb-12">We're here to help.</h2>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mt-6 mb-8">We're here to help.</h2>
           <div className="grid md:grid-cols-2 gap-4">
             {[{ href: 'https://wa.me/14509127880', icon: MessageCircle, color: 'green', label: 'WhatsApp', info: '+1 (450) 912-7880' }, { href: 'https://t.me/iptvusca', icon: Send, color: 'blue', label: 'Telegram', info: '@iptvusca' }].map((item, i) => (
               <motion.a key={i} href={item.href} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.03, y: -5 }} className="bg-gray-50 dark:bg-gray-800 hover:bg-white dark:hover:bg-gray-700 rounded-2xl p-8 flex flex-col items-center gap-3 transition-all border border-transparent hover:border-gray-200 dark:hover:border-gray-600 hover:shadow-xl">
