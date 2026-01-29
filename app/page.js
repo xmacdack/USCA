@@ -493,26 +493,16 @@ const Navbar = ({ isDark, toggleTheme, hasAlert }) => {
             </div>
           </div>
 
-          {/* Right Side */}
-          <div className="hidden lg:flex items-center gap-3">
+          {/* Right Side - Single Primary CTA */}
+          <div className="hidden lg:flex items-center gap-4">
             <ThemeToggle isDark={isDark} toggle={toggleTheme} />
             
-            <motion.button 
-              className="flex items-center gap-2 px-4 py-2.5 text-gray-600 dark:text-gray-300 hover:text-[#E50914] transition-colors text-sm font-medium"
-              onClick={() => window.open('https://iptvusca.sell.app/product/24-hours-trial?info=reviews', '_blank')}
-              whileHover={{ scale: 1.05 }}
-            >
-              <PlayCircle className="w-4 h-4" />
-              Free Trial
-            </motion.button>
-            
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
               <Button 
-                className="btn-premium rounded-full px-6 py-2.5 flex items-center gap-2 shadow-lg shadow-red-500/25"
-                onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+                className="bg-[#E50914] hover:bg-[#c7080f] text-white rounded-full px-6 py-2.5 font-medium shadow-md"
+                onClick={() => window.open('https://iptvusca.sell.app/product/24-hours-trial?info=reviews', '_blank')}
               >
-                <Rocket className="w-4 h-4" />
-                Get Started
+                Start Free Trial
               </Button>
             </motion.div>
           </div>
