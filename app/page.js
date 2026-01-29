@@ -998,6 +998,7 @@ export default function App() {
   return (
     <main className="min-h-screen bg-white dark:bg-black transition-colors">
       <div className="noise-overlay" />
+      <MouseFollower />
       <Confetti active={confetti} />
       <AnimatePresence>
         {hasAlert && <AlertBanner settings={settings} onClose={closeBanner} />}
