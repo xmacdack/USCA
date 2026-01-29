@@ -642,36 +642,179 @@ const InteractiveCTA = ({ setConfetti }) => {
 const PricingSection = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
+  
+  const features = [
+    '22,000+ Live Channels',
+    '80,000+ Movies & Series',
+    '4K Ultra HD Quality',
+    'VPN Compatible',
+    '24/7 Premium Support',
+    'Instant Activation',
+    'All Devices Supported',
+    'Free Regular Updates'
+  ]
+  
   return (
-    <section id="pricing" ref={ref} className="py-24 relative overflow-hidden">
+    <section id="pricing" ref={ref} className="py-32 relative overflow-hidden">
       <div className="absolute inset-0 grid-pattern" />
       <FloatingOrb className="top-20 right-0" size={500} delay={0} />
+      <FloatingOrb className="bottom-20 left-0" size={400} color="#ff4444" delay={2} />
       <Particles count={10} />
+      
       <div className="container mx-auto px-6 relative z-10">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} className="text-center mb-16">
-          <motion.span className="section-label mb-6 inline-flex" whileHover={{ scale: 1.05 }}><Crown className="w-4 h-4" /> Gold Server</motion.span>
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight mt-6">Simple pricing.</h2>
-          <p className="text-gray-500 dark:text-gray-400 text-lg mt-4">All plans include everything. No hidden fees.</p>
+        {/* Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }} 
+          animate={isInView ? { opacity: 1, y: 0 } : {}} 
+          className="text-center mb-20"
+        >
+          <motion.span 
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#E50914]/10 to-[#ff4444]/10 border border-[#E50914]/20 text-[#E50914] px-5 py-2 rounded-full text-sm font-bold mb-6"
+            whileHover={{ scale: 1.05 }}
+          >
+            <Crown className="w-4 h-4" />
+            GOLD SERVER
+          </motion.span>
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tight">
+            Choose your <span className="text-gradient">plan</span>
+          </h2>
+          <p className="text-gray-500 dark:text-gray-400 text-lg mt-4 max-w-xl mx-auto">
+            All plans include everything. No hidden fees. Cancel anytime.
+          </p>
         </motion.div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+
+        {/* Pricing Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-7xl mx-auto">
           {PRICING.map((plan, index) => (
-            <motion.div key={index} initial={{ opacity: 0, y: 30 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ delay: index * 0.1 }} whileHover={{ y: -10, scale: 1.02 }} className={`pricing-card ${plan.featured ? 'featured' : ''}`}>
-              {plan.featured && (<motion.div className="absolute -top-3 left-1/2 -translate-x-1/2" animate={{ y: [0, -3, 0] }} transition={{ duration: 2, repeat: Infinity }}><span className="bg-[#E50914] text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg">POPULAR</span></motion.div>)}
-              {plan.bestValue && (<motion.div className="absolute -top-3 left-1/2 -translate-x-1/2" animate={{ y: [0, -3, 0] }} transition={{ duration: 2, repeat: Infinity }}><span className="bg-black dark:bg-white text-white dark:text-black text-xs font-bold px-4 py-1.5 rounded-full shadow-lg">BEST VALUE</span></motion.div>)}
-              <div className="mb-6">
-                <p className={`text-sm font-medium mb-2 ${plan.featured ? 'text-gray-400' : 'text-gray-500'}`}>{plan.duration}</p>
-                <span className={`text-4xl font-bold ${plan.featured ? 'text-white' : ''}`}>${plan.price}</span>
-                <p className={`text-sm mt-1 ${plan.featured ? 'text-gray-400' : 'text-gray-400'}`}><span className="line-through">${plan.original}</span> • <span className="text-[#E50914] font-semibold">${plan.monthly}/mo</span></p>
-              </div>
-              <ul className="space-y-3 mb-8">
-                {['22K+ Channels', '80K+ Movies', '4K Quality', 'VPN Support', '24/7 Help'].map((f, i) => (<li key={i} className={`flex items-center gap-2 text-sm ${plan.featured ? 'text-gray-300' : 'text-gray-600 dark:text-gray-400'}`}><Check className="w-4 h-4 text-[#E50914]" />{f}</li>))}
-              </ul>
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <Button className={`w-full rounded-full py-6 font-semibold ${plan.featured ? 'bg-white text-black hover:bg-gray-100' : 'btn-premium'}`} onClick={() => window.open(plan.link, '_blank')}>Get Started</Button>
+            <motion.div 
+              key={index} 
+              initial={{ opacity: 0, y: 40 }} 
+              animate={isInView ? { opacity: 1, y: 0 } : {}} 
+              transition={{ delay: index * 0.1 + 0.2 }}
+              className="relative"
+            >
+              {/* Badge */}
+              {(plan.featured || plan.bestValue) && (
+                <motion.div 
+                  className="absolute -top-4 left-0 right-0 flex justify-center z-10"
+                  initial={{ scale: 0, y: 10 }}
+                  animate={isInView ? { scale: 1, y: 0 } : {}}
+                  transition={{ delay: index * 0.1 + 0.4, type: "spring" }}
+                >
+                  <span className={`px-4 py-1.5 rounded-full text-xs font-bold shadow-lg ${
+                    plan.featured 
+                      ? 'bg-[#E50914] text-white shadow-red-500/30' 
+                      : 'bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-200 text-white dark:text-black'
+                  }`}>
+                    {plan.featured ? '⭐ MOST POPULAR' : '💎 BEST VALUE'}
+                  </span>
+                </motion.div>
+              )}
+              
+              {/* Card */}
+              <motion.div
+                className={`h-full rounded-3xl p-6 pt-8 transition-all duration-300 ${
+                  plan.featured 
+                    ? 'bg-gradient-to-b from-gray-900 via-gray-900 to-black text-white border-2 border-[#E50914] shadow-2xl shadow-red-500/20' 
+                    : 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-[#E50914]/50 hover:shadow-xl hover:shadow-red-500/5'
+                }`}
+                whileHover={{ y: -8, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                {/* Plan Name */}
+                <div className="mb-6">
+                  <p className={`text-sm font-semibold uppercase tracking-wider mb-3 ${
+                    plan.featured ? 'text-[#E50914]' : 'text-gray-500 dark:text-gray-400'
+                  }`}>
+                    {plan.duration}
+                  </p>
+                  
+                  {/* Price */}
+                  <div className="flex items-end gap-2">
+                    <span className={`text-5xl font-bold ${plan.featured ? 'text-white' : ''}`}>
+                      ${plan.price}
+                    </span>
+                  </div>
+                  
+                  {/* Savings */}
+                  <div className="flex items-center gap-2 mt-2">
+                    <span className={`text-sm line-through ${plan.featured ? 'text-gray-500' : 'text-gray-400'}`}>
+                      ${plan.original}
+                    </span>
+                    <span className="text-xs font-bold text-[#E50914] bg-[#E50914]/10 px-2 py-0.5 rounded-full">
+                      ${plan.monthly}/mo
+                    </span>
+                  </div>
+                </div>
+
+                {/* Divider */}
+                <div className={`h-px w-full mb-6 ${plan.featured ? 'bg-gray-700' : 'bg-gray-200 dark:bg-gray-700'}`} />
+
+                {/* Features */}
+                <ul className="space-y-3 mb-8">
+                  {features.slice(0, 5).map((feature, i) => (
+                    <motion.li 
+                      key={i} 
+                      className={`flex items-center gap-3 text-sm ${
+                        plan.featured ? 'text-gray-300' : 'text-gray-600 dark:text-gray-400'
+                      }`}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={isInView ? { opacity: 1, x: 0 } : {}}
+                      transition={{ delay: index * 0.1 + i * 0.05 + 0.3 }}
+                    >
+                      <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
+                        plan.featured ? 'bg-[#E50914]' : 'bg-[#E50914]/10'
+                      }`}>
+                        <Check className={`w-3 h-3 ${plan.featured ? 'text-white' : 'text-[#E50914]'}`} />
+                      </div>
+                      {feature}
+                    </motion.li>
+                  ))}
+                </ul>
+
+                {/* Button */}
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <Button 
+                    className={`w-full py-6 rounded-2xl font-bold text-base transition-all ${
+                      plan.featured 
+                        ? 'bg-white text-black hover:bg-gray-100 shadow-lg' 
+                        : 'bg-[#E50914] text-white hover:bg-[#c7080f] shadow-lg shadow-red-500/25'
+                    }`}
+                    onClick={() => window.open(plan.link, '_blank')}
+                  >
+                    {plan.featured ? 'Get Started Now' : 'Choose Plan'}
+                  </Button>
+                </motion.div>
+                
+                {/* Guarantee */}
+                <p className={`text-xs text-center mt-4 ${plan.featured ? 'text-gray-500' : 'text-gray-400'}`}>
+                  7-day money-back guarantee
+                </p>
               </motion.div>
             </motion.div>
           ))}
         </div>
+
+        {/* Trust Badge */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.8 }}
+          className="flex flex-wrap items-center justify-center gap-6 mt-16 text-gray-400 text-sm"
+        >
+          <div className="flex items-center gap-2">
+            <Shield className="w-5 h-5 text-green-500" />
+            <span>Secure Payments</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Zap className="w-5 h-5 text-yellow-500" />
+            <span>Instant Activation</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Headphones className="w-5 h-5 text-blue-500" />
+            <span>24/7 Support</span>
+          </div>
+        </motion.div>
       </div>
     </section>
   )
