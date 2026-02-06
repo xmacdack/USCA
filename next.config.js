@@ -4,10 +4,9 @@ const nextConfig = {
     unoptimized: true,
   },
   serverExternalPackages: ['mongodb'],
-  turbopack: {
-    resolveAlias: {
-      'mongodb': ['mongodb'],
-    },
+  // Disable Turbopack for broader compatibility (use webpack instead)
+  experimental: {
+    turbopack: false,
   },
   webpack(config, { dev }) {
     if (dev) {
