@@ -2,7 +2,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  turbopack: {},
   onDemandEntries: {
     maxInactiveAge: 10000,
     pagesBufferLength: 2,
