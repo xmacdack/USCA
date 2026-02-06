@@ -4,10 +4,7 @@ const nextConfig = {
     unoptimized: true,
   },
   serverExternalPackages: ['mongodb'],
-  // Disable Turbopack for broader compatibility (use webpack instead)
-  experimental: {
-    turbopack: false,
-  },
+  turbopack: {},
   webpack(config, { dev }) {
     if (dev) {
       // Reduce CPU/memory from file watching
