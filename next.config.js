@@ -3,7 +3,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  experimental: {},
+  experimental: {
+    forceSwcTransforms: false,
+  },
   webpack(config, { dev }) {
     if (dev) {
       // Reduce CPU/memory from file watching
