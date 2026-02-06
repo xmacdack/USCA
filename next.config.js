@@ -1,22 +1,8 @@
 const nextConfig = {
-  swcMinify: false,
   images: {
     unoptimized: true,
   },
-  experimental: {
-    forceSwcTransforms: false,
-  },
-  webpack(config, { dev }) {
-    if (dev) {
-      // Reduce CPU/memory from file watching
-      config.watchOptions = {
-        poll: 2000, // check every 2 seconds
-        aggregateTimeout: 300, // wait before rebuilding
-        ignored: ['**/node_modules'],
-      };
-    }
-    return config;
-  },
+  turbopack: {},
   onDemandEntries: {
     maxInactiveAge: 10000,
     pagesBufferLength: 2,
